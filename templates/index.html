@@ -1,31 +1,56 @@
 <!doctype html>
 <html>
     <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <link rel="stylesheets" type="text/css" href="css/stylesheets.css">
-        <script src="//code.angularjs.org/1.5.0-rc.2/angular.min.js"></script>
-        <script src="//code.angularjs.org/1.5.0-rc.2/angular-route.min.js"></script>
+<!--<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">-->
+        <script src="//code.angularjs.org/1.5.0-rc.2/angular.js"></script>
+        <script src="//code.angularjs.org/1.5.0-rc.2/angular-animate.js"></script>
+        <script src="//code.angularjs.org/1.5.0-rc.2/angular-touch.js"></script>
+        <script src="//code.angularjs.org/1.5.0-rc.2/angular-route.js"></script>
+        <script src="//code.angularjs.org/1.5.0-rc.2/angular-cookies.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.4/ui-bootstrap-tpls.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.4/socket.io.js"></script>
-        <script src="static/js/controller.js"></script>
+        <link rel="stylesheet" href="assets/sidebar-left.css">
+        <script src="js/controller.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.css">
     </head>
     
     <body>
+        <div class="navbar-top">
         <nav class="navbar navbar-default navbar-fixed-top">
               <div class="container">
                     <h>Welcome!</h>
               </div>
         </nav>
+        </div>
+        <div class="container">
         <aside class="sidebar-left">
 
 		<a class="company-logo" href="#">Logo</a>
-
+		
 		<div class="sidebar-links">
 			<a class="link-blue" href="#"><i class="fa fa-picture-o"></i>Photography</a>
 			<a class="link-red" href="#"><i class="fa fa-heart-o"></i>Favorites</a>
-			<a class="link-yellow selected" href="#"><i class="fa fa-keyboard-o"></i>Projects</a>
+			<a class="link-yellow " href="#"><i class="fa fa-keyboard-o"></i>Projects</a>
 			<a class="link-green" href="#"><i class="fa fa-map-marker"></i>Places</a>
 		</div>
-
+        
 	</aside>
+	</div>
+		<script>
+
+		$(function () {
+
+			var links = $('.sidebar-links > a');
+
+			links.on('click', function () {
+
+				links.removeClass('selected');
+				$(this).addClass('selected');
+
+			})
+		});
+
+	</script>
     </body>
 </html>
