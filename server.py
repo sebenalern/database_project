@@ -1,6 +1,6 @@
 import os
 import uuid
-from flask import Flask, session, render_template, request
+from flask import Flask, session, render_template, request, send_file
 from flask.ext.socketio import SocketIO, emit
 import psycopg2
 import psycopg2.extras
@@ -14,7 +14,7 @@ socketio = SocketIO(app)
 @app.route('/')
 def mainIndex():
     print 'in hello world'
-    return app.send_static_file('index.html')
+    return send_file("templates/index.html")
 
 # start the server
 if __name__ == '__main__':
