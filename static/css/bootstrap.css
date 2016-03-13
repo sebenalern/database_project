@@ -9,12 +9,7 @@ html {
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
-.navbar-top 
-{
-  width:700px;
-  margin-left: auto;
-  margin-right: auto;
-}
+
 body {
   margin: 0;
 }
