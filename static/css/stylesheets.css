@@ -21,9 +21,14 @@
 	border-radius: 50%;
 	background-color: black;
 }
-.sidebar-left > a {
 
-	background-color: blue;
+
+.button-right {
+	float:right;
+}
+
+.footer{
+	height:1px;
 }
 
 h {
