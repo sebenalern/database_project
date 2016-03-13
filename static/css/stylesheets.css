@@ -1,6 +1,35 @@
-body { padding-top: 50px; }
+.navbar-fixed-top { 
+    background-image: none;
+    background-color: #292c2f;
+  
 
-.navbar-fixed-top {
-    height: 400px; /* Whatever you want. */
+}
+
+.sidebar-left a.company-logo {
+	display: block;
+	text-decoration: none;
+	font-family: Cookie, cursive;
+	width: 85px;
+	height: 85px;
+	margin: 0 auto;
+	padding: 0;
+	text-align: center;
+	color:  #ffffff;
+	font-size: 19px;
+	font-weight: normal;
+	line-height: 2.6;
+	border-radius: 50%;
+	background-color: black;
+}
+.sidebar-left > a {
+
+	background-color: blue;
+}
+
+h {
+    color:white;
+}
+body {
+    background-color: lightblue;
 }
 
