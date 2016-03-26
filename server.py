@@ -10,11 +10,20 @@ app = Flask(__name__, static_url_path='')
 app.config['SECRET_KEY'] = 'secret!'
 
 socketio = SocketIO(app)
-
+# renders the main page
 @app.route('/')
 def mainIndex():
-    print 'in hello world'
-    return send_file("templates/index.html")
+    return render_template("index.html")
+    
+# renders login page   
+@app.route('/login')
+def renderLoginPage():
+    return render_template('loginPage.html')
+    
+# renders registration page  
+@app.route('/videos')
+def renderRegistrationPage():
+    return render_template('registration.html')
 
 # start the server
 if __name__ == '__main__':

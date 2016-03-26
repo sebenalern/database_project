@@ -2,8 +2,8 @@ var myApp = angular.module('myApp', ['ngRoute']);
 
 myApp.controller('mainController', ['$scope', '$log', function ($scope, $log) {
     
-    var socket = io.connect('https://' + document.domain + ':' + location.port + '/iss');
-    
+    var socket = io.connect('https://' + document.domain + ':' + location.port + '/chitchat');
+
     socket.on('connect', function(){
         $log.log("After connected");
     });
