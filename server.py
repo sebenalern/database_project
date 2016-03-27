@@ -21,7 +21,7 @@ def renderLoginPage():
     return render_template('loginPage.html')
     
 # renders registration page  
-@app.route('/videos')
+@app.route('/register')
 def renderRegistrationPage():
     return render_template('registration.html')
 
