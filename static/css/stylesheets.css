@@ -44,3 +44,7 @@ left: 100px;
 top:100px;
 
 }
+
+.glyphicon.glyphicon-user.custom {
+    font-size: 35px;
+}

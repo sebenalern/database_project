@@ -17,8 +17,8 @@
         <link rel="stylesheet" href="css/signin.css">
         <link rel="stylesheet" href="css/register.css">
         
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-         <script src="js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
     </head>
     
     <body>
@@ -39,19 +39,28 @@
         <div class="container">
         <aside class="sidebar-left">
 
-		<a class="company-logo" href="#">ChitChat</a>
+		<a class="company-logo" href="/">ChitChat
+		  <span class="glyphicon glyphicon-user custom" aria-hidden="true"></span>
+		</a>
 		
 		<div class="sidebar-links">
-			<a class="link-green" href="#"><i class="fa fa-picture-o"></i>Photography</a>
-			<a class="link-green" href="/register"><i class="fa fa-heart-o"></i>Register Account</a>
-			<a class="link-green " href="#"><i class="fa fa-keyboard-o"></i>Projects</a>
-			<a class="link-green" href="#"><i class="fa fa-map-marker"></i>Places</a>
+			<a href="/" class="btn btn-info" role="button">Home</a>
+			<a href="/register" class="btn btn-info" role="button">Register</a>
+			<a href="#" class="btn btn-info" role="button">Login</a>
 			<a href="#" class="btn btn-info" role="button">Login</a>
 		</div>
 	</aside>
 
 	</div>
-	
+	        <nav class="navbar navbar-inverse navbar-fixed-bottom footer">
+          <div class="container-fluid">
+            <div class="navbar-header">
+                  <p class="navbar-brand" >&copy 2016 ChitChat All Rights Reserved | Designed by Laila Shaikh and Nicholas Sebenaler</p>
+            </div>
+            <ul class="nav navbar-nav">
+            </ul>
+          </div>
+        </nav>
 		<script>
 
 		$(function () {

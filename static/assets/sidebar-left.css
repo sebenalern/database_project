@@ -47,9 +47,9 @@
 	text-decoration: none;
 	margin: 0 auto 5px auto;
 	padding: 20px 0;
-	background-color: #35393e;
+	/*background-color: #35393e;*/
 	text-align: center;
-	color:  #b3bcc5;
+	/*color:  #b3bcc5;*/
 	font-size: 12px;
 	font-weight: bold;
 	border-left-width: 2px;
@@ -63,8 +63,8 @@
 }
 
 .sidebar-left .sidebar-links a.selected{
-	background-color: #ffffff;
-	color:  #7c8085;
+	/*background-color: #ffffff;*/
+	/*color:  #7c8085;*/
 	font-size: 12px;
 	font-weight: bold;
 	cursor: default;

@@ -10,6 +10,15 @@ app = Flask(__name__, static_url_path='')
 app.config['SECRET_KEY'] = 'secret!'
 
 socketio = SocketIO(app)
+
+# connects to the database
+def connectToDB():
+    connectionString = 'dbname = chitchat user=chitchat_role password=password host=localhost'
+    try:
+        return psycopg2.connect(connectionString)
+    except:
+        print 'Can\'t connect to the database.'
+
 # renders the main page
 @app.route('/')
 def mainIndex():
@@ -25,6 +34,14 @@ def renderLoginPage():
 def renderRegistrationPage():
     return render_template('registration.html')
 
+# renders porfile page  
+@app.route('/profile', methods=['GET', 'POST'])
+def renderProfile():
+    if request.method == 'POST':
+        print "inside renderProfile-------------------------------------------------------"
+        print request.form['username']
+    return render_template('profile.html')
+    
 # start the server
 if __name__ == '__main__':
         socketio.run(app, host=os.getenv('IP', '0.0.0.0'), port =int(os.getenv('PORT', 8080)), debug=True)

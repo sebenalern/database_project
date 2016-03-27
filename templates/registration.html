@@ -10,51 +10,51 @@
                 <div class="panel-body">
                     <h5 class="text-center">
                         SIGN UP</h5>
-                    <form class="form form-signup" role="form">
+                    <form class="form form-signup" role="form" method="POST" action="/profile">
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                            <input type="text" class="form-control" placeholder="Username" />
+                            <input type="text" class="form-control" placeholder="Username" name="username" required/>
                         </div>
                     </div>
                     
-                    <div class="form-group">
-                        <div class="input-group">
+                    <div class="form-group" required>
+                        <div class="input-group" required>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                            <input type="text" class="form-control" placeholder="FirstName" />
+                            <input type="text" class="form-control" placeholder="First Name" name = "firstname" required/>
                         </div>
                     </div>
                         
                     <div class="form-group">
                          <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                            <input type="text" class="form-control" placeholder="LastName" />
+                            <input type="text" class="form-control" placeholder="Last Name" name="lastname" required/>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
                             </span>
-                            <input type="text" class="form-control" placeholder="Email Address" />
+                            <input type="text" class="form-control" placeholder="Email Address" name = "email" required/>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                            <input type="password" class="form-control" placeholder="Password" />
+                            <input type="password" class="form-control" placeholder="Password" name = "password" required/>
                         </div>
                     </div>
                     
                      <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                            <input type="password" class="form-control" placeholder="Reenter Password" />
+                            <input type="password" class="form-control" placeholder="Confirm Password" name = "confirmPassword" required/>
                         </div>
                     </div>
                     
                     
                 </div>
-                <a href="http://www.jquery2dotnet.com" class="btn btn-sm btn-primary btn-block" role="button">
+                <a type="submit" class="btn btn-sm btn-primary btn-block" role="button">
                     SUBMIT</a> </form>
             </div>
         </div>
