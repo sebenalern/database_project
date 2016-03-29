@@ -25,8 +25,20 @@ def mainIndex():
     return render_template("index.html")
     
 # renders login page   
-@app.route('/login')
+@app.route('/login', methods=['GET','POST'])
 def renderLoginPage():
+    if request.method=="POST":
+        print 'helooooooo we are in login page------------'
+        try:
+            conn=connectToDB()
+            cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+            print request.form['inputEmail']
+            cur.execute("select first_name, lastname from users where email='%s' AND password=crypt('%s', password);",request.form['inputEmail'], request.form['inputPassword'])
+            loginQueryFetch=cur.fetchone()
+            print loginQueryFetch
+        except:
+            print 'could not excess login table'
+        return render_template('profile.html')
     return render_template('loginPage.html')
     
 # renders registration page  
@@ -51,7 +63,7 @@ def renderProfile():
             conn.commit()
         except:
             conn.rollback()
-    socketio.emit('receiveUserProfileData', {"username": "Nick"})
+    #socketio.emit('receiveUserProfileData', {"username": "Nick"})
     return render_template("profile.html")
     
 @app.route('/edit_profile')
