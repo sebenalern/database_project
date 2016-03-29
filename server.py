@@ -37,8 +37,7 @@ def renderRegistrationPage():
     
 # gets profile page url
 @app.route('/profile', methods=['GET', 'POST'])
-<<<<<<< HEAD
-def renderProfile():
+def renderProfile(): 
     if request.method == 'POST':
         conn=connectToDB()
         cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -52,12 +51,8 @@ def renderProfile():
             conn.commit()
         except:
             conn.rollback()
-    return render_template('profile.html')
-=======
-def renderProfile(): 
     socketio.emit('receiveUserProfileData', {"username": "Nick"})
     return render_template("profile.html")
->>>>>>> 99e79671b258639bd2f283522c3c19ec25cc6313
     
 @app.route('/edit_profile')
 def renderEditProfile():
