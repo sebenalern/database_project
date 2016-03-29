@@ -1,12 +1,22 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+var chitChatApp = angular.module('chitChatApp', ['ngRoute']);
 
-myApp.controller('mainController', ['$scope', '$log', function ($scope, $log) {
+chitChatApp.controller('mainController', ['$scope', '$log', function ($scope, $log) {
     
     var socket = io.connect('https://' + document.domain + ':' + location.port + '/chitchat');
-
+    
+        
+    $scope.firstname = "";
+    $scope.lastname = "";
+    $scope.username = "";
+    
     socket.on('connect', function(){
         $log.log("After connected");
     });
+
     
-    $scope.name = "nick";
+    socket.on('receiveUserProfileData', function(userData) {
+       $log.log("in receiveUserProfileData");
+      $log.log($scope.username = userData["name"]);
+        
+    });
 }]);

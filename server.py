@@ -1,6 +1,6 @@
 import os
 import uuid
-from flask import Flask, session, render_template, request, send_file
+from flask import Flask, session, render_template, request, send_file, send_from_directory, redirect, url_for
 from flask.ext.socketio import SocketIO, emit
 import psycopg2
 import psycopg2.extras
@@ -30,18 +30,21 @@ def renderLoginPage():
     return render_template('loginPage.html')
     
 # renders registration page  
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def renderRegistrationPage():
-    return render_template('registration.html')
 
-# renders porfile page  
-@app.route('/profile', methods=['GET', 'POST'])
-def renderProfile():
-    if request.method == 'POST':
-        print "inside renderProfile-------------------------------------------------------"
-        print request.form['username']
-    return render_template('profile.html')
+    return render_template('registration.html')
     
+# gets profile page url
+@app.route('/profile', methods=['GET', 'POST'])
+def renderProfile(): 
+    socketio.emit('receiveUserProfileData', {"username": "Nick"})
+    return render_template("profile.html")
+    
+@app.route('/edit_profile')
+def renderEditProfile():
+    return render_template('edit_profile.html')
+
 # start the server
 if __name__ == '__main__':
         socketio.run(app, host=os.getenv('IP', '0.0.0.0'), port =int(os.getenv('PORT', 8080)), debug=True)

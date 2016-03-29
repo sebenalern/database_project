@@ -1,7 +1,79 @@
-{% extends "layout.html" %}
+<!doctype html>
+<html ng-app="chitChatApp">
+    <head>
+<!--<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">-->
+        <script src="//code.angularjs.org/1.5.0-rc.2/angular.js"></script>
+        <script src="//code.angularjs.org/1.5.0-rc.2/angular-animate.js"></script>
+        <script src="//code.angularjs.org/1.5.0-rc.2/angular-touch.js"></script>
+        <script src="//code.angularjs.org/1.5.0-rc.2/angular-route.js"></script>
+        <script src="//code.angularjs.org/1.5.0-rc.2/angular-cookies.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.4/ui-bootstrap-tpls.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.4/socket.io.js"></script>
+        <link rel="stylesheet" href="assets/sidebar-left.css">
+        <script src="js/controller.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.css">
+        <link rel="stylesheet" href="css/stylesheets.css">
+        <link rel="stylesheet" href="css/signin.css">
+        <link rel="stylesheet" href="css/register.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </head>
+    
+    <body ng-controller="mainController">
+        
+       
+        <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+              <div class="container">
+                   <h3>Example heading <span class="label label-info">New</span></h3>
+                  <div class="button-right">
+                   
+                    
+                    <a href="/login" class="btn btn-info" role="button">Login</a>
+                    </div>
+              </div>
+        </nav>
+        
+        
+        <div class="container">
+        <aside class="sidebar-left">
 
-{% block content %}
+		<a class="company-logo" href="/">ChitChat
+		  <span class="glyphicon glyphicon-user custom" aria-hidden="true"></span>
+		</a>
+		
+		<div class="sidebar-links">
+			<a href="/" class="btn btn-info" role="button">Home</a>
+			<a href="/edit_profile" class="btn btn-info" role="button">Edit Profile</a>
+			<a href="#" class="btn btn-info" role="button">Login</a>
+			<a href="#" class="btn btn-info" role="button">Login</a>
+		</div>
+	</aside>
 
+	</div>
+	        <nav class="navbar navbar-inverse navbar-fixed-bottom footer">
+          <div class="container-fluid">
+            <div class="navbar-header">
+                  <p class="navbar-brand" >&copy 2016 ChitChat All Rights Reserved | Designed by Laila Shaikh and Nicholas Sebenaler</p>
+            </div>
+            <ul class="nav navbar-nav">
+            </ul>
+          </div>
+        </nav>
+		<script>
 
+		$(function () {
 
-{% endblock %}
+			var links = $('.sidebar-links > a');
+
+			links.on('click', function () {
+
+				links.removeClass('selected');
+				$(this).addClass('selected');
+
+			});
+		});
+		</script>
+    </body>
+</html>
