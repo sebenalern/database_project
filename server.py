@@ -38,8 +38,18 @@ def renderRegistrationPage():
 @app.route('/profile', methods=['GET', 'POST'])
 def renderProfile():
     if request.method == 'POST':
-        print "inside renderProfile-------------------------------------------------------"
-        print request.form['username']
+        conn=connectToDB()
+        cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        try:
+            print 'hello'
+            uuidaa=uuid.uuid1()
+            print "uuid is"
+            print uuidaa
+            print(cur.mogrify("insert into users values(%s,%s,%s,%s,%s,crypt(%s, gen_salt('bf')));",(str(uuidaa), request.form['email'],request.form['firstname'], request.form['lastname'],request.form['username'],request.form['password'])))
+            cur.execute("insert into users values(%s,%s,%s,%s,%s,crypt(%s,gen_salt('bf')));",(str(uuidaa),request.form['email'],request.form['firstname'], request.form['lastname'],request.form['username'],request.form['password']))
+            conn.commit()
+        except:
+            conn.rollback()
     return render_template('profile.html')
     
 # start the server
