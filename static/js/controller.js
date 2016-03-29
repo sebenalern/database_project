@@ -7,7 +7,7 @@ chitChatApp.controller('mainController', ['$scope', '$log', '$sce', function ($s
         
     $scope.firstname = "";
     $scope.lastname = "";
-    $scope.username = "";
+    $scope.username = "Nick";
     var pic = 'http://www.wired.com/wp-content/uploads/2015/09/google-logo.jpg';
     $scope.profilePicture = $sce.trustAsUrl(pic);
     
