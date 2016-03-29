@@ -1,13 +1,141 @@
 <!doctype html>
-<html>
-    <body>
-<h1>Single</h1>
-<input type="file">
-<br>
-    
-<div class="fileinput fileinput-new" data-provides="fileinput">
-    <span class="btn btn-default btn-file"><span>Choose file</span><input type="file" /></span>
-    <span class="fileinput-filename"></span><span class="fileinput-new">No file chosen</span>
+<html ng-app="chitChatApp">
+    <head>
+<!--<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">-->
+        <script src="//code.angularjs.org/1.5.0-rc.2/angular.js"></script>
+        <script src="//code.angularjs.org/1.5.0-rc.2/angular-animate.js"></script>
+        <script src="//code.angularjs.org/1.5.0-rc.2/angular-touch.js"></script>
+        <script src="//code.angularjs.org/1.5.0-rc.2/angular-route.js"></script>
+        <script src="//code.angularjs.org/1.5.0-rc.2/angular-cookies.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.4/ui-bootstrap-tpls.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.4/socket.io.js"></script>
+        <link rel="stylesheet" href="assets/sidebar-left.css">
+        <script src="js/controller.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.css">
+        <link rel="stylesheet" href="css/stylesheets.css">
+        <link rel="stylesheet" href="css/signin.css">
+        <link rel="stylesheet" href="css/register.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </head>
+    <body ng-controller="mainController">
+<div class="container" style="padding-top: 60px;">
+  <h1 class="page-header">Edit Profile</h1>
+  <div class="row">
+    <!-- left column -->
+    <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="text-center">
+        <img ng-src= "{{profilePicture}}" class="avatar img-circle img-thumbnail" alt="avatar"/>
+        <h6>Upload a different photo...</h6>
+        <input type="file" class="text-center center-block well well-sm">
+      </div>
+    </div>
+    <!-- edit form column -->
+    <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+      <div class="alert alert-info alert-dismissable">
+        <a class="panel-close close" data-dismiss="alert">×</a> 
+        <i class="fa fa-coffee"></i>
+        This is an <strong>.alert</strong>. Use this to show important messages to the user.
+      </div>
+      <h3>Personal info</h3>
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label class="col-lg-3 control-label">First name:</label>
+          <div class="col-lg-8">
+            <input class="form-control" value="Jane" type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Last name:</label>
+          <div class="col-lg-8">
+            <input class="form-control" value="Bishop" type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Company:</label>
+          <div class="col-lg-8">
+            <input class="form-control" value="" type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Email:</label>
+          <div class="col-lg-8">
+            <input class="form-control" value="janesemail@gmail.com" type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Time Zone:</label>
+          <div class="col-lg-8">
+            <div class="ui-select">
+              <select id="user_time_zone" class="form-control">
+                <option value="Hawaii">(GMT-10:00) Hawaii</option>
+                <option value="Alaska">(GMT-09:00) Alaska</option>
+                <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
+                <option value="Arizona">(GMT-07:00) Arizona</option>
+                <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
+                <option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>
+                <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
+                <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Username:</label>
+          <div class="col-md-8">
+            <input class="form-control" value="janeuser" type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Password:</label>
+          <div class="col-md-8">
+            <input class="form-control" value="11111122333" type="password">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Confirm password:</label>
+          <div class="col-md-8">
+            <input class="form-control" value="11111122333" type="password">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <input class="btn btn-primary" value="Save Changes" type="button">
+            <span></span>
+            <input class="btn btn-default" value="Cancel" type="reset">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
+
+   <!--<div class="span12">-->            
+   <!-- <div class="span4">-->
+   <!--     <div class="fileupload fileupload-new" data-provides="fileupload">-->
+   <!--         <div class="input-append">-->
+   <!--             <div class="uneditable-input span3">-->
+   <!--                 <i class="icon-file fileupload-exists"></i> -->
+   <!--                 <span class="fileupload-preview" ng-model="userType"></span>                                          -->
+   <!--             </div>                                -->
+   <!--             <span class="btn btn-file">-->
+   <!--                 <span class="fileupload-new">Select file</span>-->
+   <!--                 <span class="fileupload-exists">Change</span>-->
+                    <!--<input type="file" name="file" />-->
+   <!--                 <input type="file" ng-model="upFile" onchange="angular.element(this).scope().setFileEventListener(this)" />-->
+   <!--             </span>-->
+   <!--             <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>-->
+   <!--         </div>-->
+   <!--     </div>                   -->
+   <!-- </div>-->
+   <!-- <div class="span2"  >-->
+   <!--     <button type="submit"  value="Send" id="btnStartUpload" class="btn start" ng-click="uploadFile()" ng-disabled="!upload_button_state">-->
+   <!--         <i class="icon-upload"></i>-->
+   <!--         <span>Upload File</span>-->
+   <!--     </button>                       -->
+    </div>
     </body>
 </html>
