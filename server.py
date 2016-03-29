@@ -33,10 +33,14 @@ def renderLoginPage():
             conn=connectToDB()
             cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
             print request.form['inputEmail']
-            cur.execute("select first_name, lastname from users where email='%s' AND password=crypt('%s', password);",request.form['inputEmail'], request.form['inputPassword'])
-            loginQueryFetch=cur.fetchone()
-            print loginQueryFetch
-        except:
+            print request.form['inputPassword']
+            print(cur.mogrify("select email, first_name,last_name,username from users where email=%s AND password=crypt(%s, password);",(request.form['inputEmail'], request.form['inputPassword'])))
+            cur.execute("select email, first_name,last_name,username from users where email=%s AND password=crypt(%s, password);",(request.form['inputEmail'], request.form['inputPassword']))
+            print 'we have reached here'
+            # loginQueryFetch=cur.fetchone()
+            # if loginQueryFetch is none:
+            # else:
+        except:    
             print 'could not excess login table'
         return render_template('profile.html')
     return render_template('loginPage.html')
