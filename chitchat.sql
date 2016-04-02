@@ -30,6 +30,7 @@ CREATE TABLE users (
                    );
                     
 CREATE TABLE messages (
+                        -- id serial primary key
                         uuid text NOT NULL REFERENCES users(uuid),
                         message text NOT NULL
                       );
