@@ -1,12 +1,17 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class="container">
+
       </br>
       </br>
       </br>
       <div class="row">
          <div class="col-md-4 col-md-offset-4">
+                 <div class="alert alert-danger" ng-if="notLoggedIn">
+      <strong>Incorrect!</strong> Username/password is not correct.
+    </div>
             <div class="panel panel-default">
+                
                 <div class="panel-body">
      
                 <form class="form-signin" method="POST" action="/login">
