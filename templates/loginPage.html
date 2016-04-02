@@ -6,10 +6,16 @@
       </br>
       </br>
       <div class="row">
+          
+        
          <div class="col-md-4 col-md-offset-4">
-                 <div class="alert alert-danger" ng-if="notLoggedIn">
+             {% if notLoggedIn %}
+                 <div class="alert alert-danger">
       <strong>Incorrect!</strong> Username/password is not correct.
     </div>
+      <br>
+        
+          {% endif %}
             <div class="panel panel-default">
                 
                 <div class="panel-body">

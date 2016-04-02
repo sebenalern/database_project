@@ -37,12 +37,17 @@ def renderLoginPage():
             print(cur.mogrify("select email, first_name,last_name,username from users where email=%s AND password=crypt(%s, password);",(request.form['inputEmail'], request.form['inputPassword'])))
             cur.execute("select email, first_name, last_name, username from users where email=%s AND password=crypt(%s, password);",(request.form['inputEmail'], request.form['inputPassword']))
             print 'we have reached here'
-            # loginQueryFetch=cur.fetchone()
-            # if loginQueryFetch is none:
-            # else:
+            loginQueryFetch=cur.fetchone()
+            if loginQueryFetch is not None:
+                socketio.emit("receiveUserProfileData", loginQueryFetch, namespace = '/chitchat')
+                return render_template('profile.html')
+            else:
+                socketio.emit("notReceiveUserProfileData", namespace = '/chitchat')
+                return render_template('loginPage.html', notLoggedIn=True)
+
         except:    
             print 'could not excess login table'
-        return render_template('profile.html')
+        
     return render_template('loginPage.html')
     
 # renders registration page  
@@ -59,9 +64,9 @@ def renderProfile():
         cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         try:
             print 'hello'
-            uuid=uuid.uuid1()
-            print(cur.mogrify("insert into users values(%s,%s,%s,%s,%s,crypt(%s, gen_salt('bf')));",(str(uuid), request.form['email'],request.form['firstname'], request.form['lastname'],request.form['username'],request.form['password'])))
-            cur.execute("insert into users values(%s,%s,%s,%s,%s,crypt(%s,gen_salt('bf')));",(str(uuid),request.form['email'],request.form['firstname'], request.form['lastname'],request.form['username'],request.form['password']))
+            myUuid=uuid.uuid1()
+            print(cur.mogrify("insert into users values(%s,%s,%s,%s,%s,crypt(%s, gen_salt('bf')));",(str(myUuid), request.form['email'],request.form['firstname'], request.form['lastname'],request.form['username'],request.form['password'])))
+            cur.execute("insert into users values(%s,%s,%s,%s,%s,crypt(%s,gen_salt('bf')));",(str(myUuid),request.form['email'],request.form['firstname'], request.form['lastname'],request.form['username'],request.form['password']))
             conn.commit()
         except:
             conn.rollback()

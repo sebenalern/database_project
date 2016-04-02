@@ -5,9 +5,10 @@ chitChatApp.controller('mainController', ['$scope', '$log', '$sce', function ($s
     var socket = io.connect('https://' + document.domain + ':' + location.port + '/chitchat');
     
         
-    $scope.firstname = "";
-    $scope.lastname = "";
+    $scope.firstName = "";
+    $scope.lastName = "";
     $scope.username = "Nick";
+    $scope.email = "";
     $scope.notLoggedIn = false;
     var pic = 'http://www.wired.com/wp-content/uploads/2015/09/google-logo.jpg';
     $scope.profilePicture = $sce.trustAsUrl(pic);
@@ -18,8 +19,8 @@ chitChatApp.controller('mainController', ['$scope', '$log', '$sce', function ($s
 
     
     socket.on('receiveUserProfileData', function(userData) {
-       $log.log("in receiveUserProfileData");
-      $log.log(userData);
+        $log.log("in receiveUserProfileData");
+        $log.log(userData);
         
     });
     
