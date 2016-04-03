@@ -25,32 +25,25 @@ def mainIndex():
     return render_template("index.html")
     
 # renders login page   
-@app.route('/login', methods=['GET','POST'])
-def renderLoginPage():
-    if request.method=="POST":
-        print 'helooooooo we are in login page------------'
-        try:
-            conn=connectToDB()
-            cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-            print request.form['inputEmail']
-            print request.form['inputPassword']
-            print(cur.mogrify("select email, first_name,last_name,username from users where email=%s AND password=crypt(%s, password);",(request.form['inputEmail'], request.form['inputPassword'])))
-            cur.execute("select email, first_name, last_name, username from users where email=%s AND password=crypt(%s, password);",(request.form['inputEmail'], request.form['inputPassword']))
-            print 'we have reached here'
-            loginQueryFetch=cur.fetchone()
-            tempDict = {}
-            tempDict = loginQueryFetch
-            print tempDict
-            if loginQueryFetch is not None:
-                socketio.emit("receiveUserProfileData", {"nick":tempDict}, namespace='/chitchat')
-                return render_template('profile.html')
-            else:
-                socketio.emit("notReceiveUserProfileData", namespace = '/chitchat')
-                return render_template('loginPage.html', notLoggedIn=True)
-
-        except:    
-            print 'could not excess login table'
-        
+@socketio.on("LoginDetails", namespace="/chitchat")
+def renderLoginPage(UserDetails):
+    print 'helooooooo we are in login page------------'
+    try:
+        conn=connectToDB()
+        cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        print(cur.mogrify("select email, first_name,last_name,username from users where email=%s AND password=crypt(%s, password);",(UserDetails[0],UserDetails[1])))
+        cur.execute("select email, first_name, last_name, username from users where email=%s AND password=crypt(%s, password);",(UserDetails[0],UserDetails[1]))
+        print 'we have reached here'
+        loginQueryFetch=cur.fetchone()
+        print loginQueryFetch
+        if loginQueryFetch is not None:
+            emit("receiveUserProfileData", loginQueryFetch, namespace = '/chitchat')
+            return send_file('templates/profile.html')
+        else:
+            emit("notReceiveUserProfileData", namespace = '/chitchat')
+            return render_template('loginPage.html', notLoggedIn=True)
+    except:
+        print 'could not excess login table'
     return render_template('loginPage.html')
     
 # renders registration page  
