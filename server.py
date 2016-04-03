@@ -1,6 +1,6 @@
 import os
 import uuid
-from flask import Flask, session, render_template, request, send_file, send_from_directory, redirect, url_for
+from flask import Flask, session, render_template, request, send_file, send_from_directory, redirect, url_for, send_static_file
 from flask.ext.socketio import SocketIO, emit
 import psycopg2
 import psycopg2.extras
@@ -24,7 +24,15 @@ def connectToDB():
 def mainIndex():
     return render_template("index.html")
     
-# renders login page   
+    
+ 
+@app.route('/login')
+def loginButtonClicked():
+    return render_template("loginPage.html")    
+    
+    
+# renders login page 
+@app.route('/sending')
 @socketio.on("LoginDetails", namespace="/chitchat")
 def renderLoginPage(UserDetails):
     print 'helooooooo we are in login page------------'
@@ -38,13 +46,14 @@ def renderLoginPage(UserDetails):
         print loginQueryFetch
         if loginQueryFetch is not None:
             emit("receiveUserProfileData", loginQueryFetch, namespace = '/chitchat')
-            return send_file('templates/profile.html')
+            print 'DOES IT EVER COME BACK-------------------------------'
+            return send_static_file("profile.html")
         else:
             emit("notReceiveUserProfileData", namespace = '/chitchat')
             return render_template('loginPage.html', notLoggedIn=True)
     except:
         print 'could not excess login table'
-    return render_template('loginPage.html')
+    return render_template("loginPage.html")
     
 # renders registration page  
 @app.route('/register', methods=['GET', 'POST'])
