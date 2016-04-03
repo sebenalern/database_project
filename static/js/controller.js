@@ -17,6 +17,15 @@ chitChatApp.controller('mainController', ['$scope', '$log', '$sce', function ($s
         $log.log("After connected");
     });
 
+    $scope.getLogin = function (email, password) {
+      $log.log(email);
+      $log.log(password);
+      $scope.tempArray = [];
+      $scope.tempArray.push(email);
+      $scope.tempArray.push(password);
+      
+      socket.emit('LoginDetails', $scope.tempArray);
+    };
     
     socket.on('receiveUserProfileData', function(userData) {
         $log.log("in receiveUserProfileData");

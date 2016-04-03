@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="container">
+    <div class="container" ng-controller="mainController">
 
       </br>
       </br>
@@ -20,12 +20,12 @@
                 
                 <div class="panel-body">
      
-                <form class="form-signin" method="POST" action="/login">
+                <form class="form-signin" ng-submit="getLogin(email, password)">
                     <h1 class="form-signin-heading" id="headingLogin">Please sign in</h2>
                     <label for="inputEmail" class="sr-only">Email address</label>
-                    <input type="email" id="inputEmail" class="form-control" placeholder="Email Address" name="inputEmail" required autofocus>
+                    <input type="email" id="inputEmail" class="form-control" placeholder="Email Address" name="inputEmail" ng-model ="email" required autofocus>
                     <label for="inputPassword" class="sr-only">Password</label>
-                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="inputPassword"  required>
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="inputPassword" ng-model="password" required>
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
                 </form>
                 </div> <!-- /container -->

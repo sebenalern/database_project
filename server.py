@@ -38,8 +38,11 @@ def renderLoginPage():
             cur.execute("select email, first_name, last_name, username from users where email=%s AND password=crypt(%s, password);",(request.form['inputEmail'], request.form['inputPassword']))
             print 'we have reached here'
             loginQueryFetch=cur.fetchone()
+            tempDict = {}
+            tempDict = loginQueryFetch
+            print tempDict
             if loginQueryFetch is not None:
-                socketio.emit("receiveUserProfileData", loginQueryFetch, namespace = '/chitchat')
+                socketio.emit("receiveUserProfileData", {"nick":tempDict}, namespace='/chitchat')
                 return render_template('profile.html')
             else:
                 socketio.emit("notReceiveUserProfileData", namespace = '/chitchat')
