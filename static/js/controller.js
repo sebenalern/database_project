@@ -1,45 +1,41 @@
 var chitChatApp = angular.module('chitChatApp', ['ngRoute']);
+var socket = io.connect('https://' + document.domain + ':' + location.port + '/chitchat');
 
-chitChatApp.controller('mainController', ['$scope', '$log', '$sce', function ($scope, $log, $sce) {
-    
-    var socket = io.connect('https://' + document.domain + ':' + location.port + '/chitchat');
-    
-        
-    $scope.firstName = "";
-    $scope.lastName = "";
-    $scope.username = "Nick";
-    $scope.email = "";
-    $scope.notLoggedIn = false;
-    var pic = 'http://www.wired.com/wp-content/uploads/2015/09/google-logo.jpg';
-    $scope.profilePicture = $sce.trustAsUrl(pic);
-    
-    socket.on('connect', function(){
-        $log.log("After connected");
-    });
 
-    $scope.getLogin = function (email, password) {
-      $log.log(email);
-      $log.log(password);
-      $scope.tempArray = [];
-      $scope.tempArray.push(email);
-      $scope.tempArray.push(password);
-      
-      socket.emit('LoginDetails', $scope.tempArray);
-    };
-    
-    socket.on('receiveUserProfileData', function(userData) {
-        $log.log("in receiveUserProfileData");
-        $log.log(userData);
+// myApp.factory('socket', function (socketFactory) {
+//   return socketFactory();
+// });
+
+
+chitChatApp.config(['$routeProvider',
+     function($routeProvider) {
+         $routeProvider.
         
-    });
+             when('/', {
+                 templateUrl: '../static/partials/mainPageLayout.html/',
+                 controller: "mainController"
+             }).
+            when('/login', {
+                 templateUrl: '../static/partials/loginPage.html/',
+                 controller: "mainController"
+             }).
+            when('/registration', {
+                 templateUrl: '../static/partials/registration.html/',
+                 controller: "mainController"
+             }).
+            when('/profile', {
+                 templateUrl: '../static/partials/profile.html/',
+                 controller: "mainController"
+             }).     
+             when('/edit_profile', {
+                 templateUrl: '../static/partials/edit_profile.html/',
+                 controller: "mainController"
+             }).             
+             otherwise({
+                 redirectTo: '/'
+             });
+    }]);
     
-    socket.on('notReceiveUserProfileData', function() {
-        $log.log("inside notReceiveUserProfileData");
-        $scope.notLoggedIn = true;
-    });
+chitChatApp.controller('chitChatApp', ['$scope', '$log', function ($scope, $log) {
     
-    $scope.getProfilePicture = function (picture) {
-        $scope.profilePicture = picture;
-      $log.log("here" + $scope.profilePicture);  
-    };
 }]);

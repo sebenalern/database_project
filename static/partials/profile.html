@@ -1,15 +1,14 @@
-{% extends "layout.html" %}
 
-{% block content %}
-        
-       <div ng-controller="mainController">
+
+
+<div>
         <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
               <div class="container" ng-model="username" ng-init="username = 'nick'">
                    <h3>Signed in as, {{username}}<span class="label label-info">{{username}}</span></h3>
                   <div class="button-right">
                    
                     
-                    <a href="/" class="btn btn-info" role="button">Log out</a>
+                    <a href="#/mainPageLayout" class="btn btn-info" role="button">Log out</a>
                     </div>
               </div>
         </nav>
@@ -24,7 +23,7 @@
 		
 		<div class="sidebar-links">
 			<a href="#" class="btn btn-info" role="button">Home</a>
-			<a href="/edit_profile" class="btn btn-info" role="button">Edit Profile</a>
+			<a href="#/edit_profile" class="btn btn-info" role="button">Edit Profile</a>
 			<a href="#" class="btn btn-info" role="button">Contacts</a>
 			<a href="#" class="btn btn-info" role="button">Chat</a>
 		</div>
@@ -55,4 +54,3 @@
 		});
 		</script>
 </div>
-{% endblock %}
