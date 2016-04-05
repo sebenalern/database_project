@@ -30,7 +30,11 @@ chitChatApp.config(['$routeProvider',
              when('/edit_profile', {
                  templateUrl: '../static/partials/edit_profile.html/',
                  controller: "chitChatApp"
-             }).             
+             }).  
+             when('/contacts', {
+                 templateUrl: '../static/partials/contacts.html/',
+                 controller: "chitChatApp"
+             }).                
              otherwise({
                  redirectTo: '/'
              });
@@ -79,6 +83,7 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', f
      socket.on('receiveUserProfileData', function(userData) {
         $log.log("in receiveUserProfileData");
         $location.path('/profile');
+        $scope.checked = false;
         $route.reload();
     });
     

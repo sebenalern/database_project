@@ -54,7 +54,7 @@ def renderProfile(dataToBeRegistered):
     except:
         conn.rollback()
     
-    emit('RegisteredUser')
+    emit('RegisteredUser', namespace="/chitchat")
 
 
 
