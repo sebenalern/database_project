@@ -36,8 +36,9 @@ chitChatApp.config(['$routeProvider',
              });
     }]);
     
-chitChatApp.controller('chitChatApp', ['$scope', '$log', function ($scope, $log) {
-   
+chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', function ($scope, $location ,$log,$route) {
+   $scope.RegistrationData=[];
+    $scope.notLoggedIn = false;
     socket.on('connect', function(){
          $log.log("--------------------------------Connected!--------------------------------------------");
      });
@@ -53,32 +54,44 @@ chitChatApp.controller('chitChatApp', ['$scope', '$log', function ($scope, $log)
       $scope.tempArray = [];
       $scope.tempArray.push(email);
       $scope.tempArray.push(password);
-      $log.log($scope.hello);
       socket.emit('LoginDetails', $scope.tempArray);
     };
     
     //---getting the registration detail from html page
-    $scope.RegistrationCheck = function () {
-        $log.log("Hey nickkkkkkkkkkkkk");
+    $scope.RegistrationCheck = function (UsernameR,FirstnameR,LastnameR,EmailR,PasswordR) {
+        console.log(UsernameR);
+        $scope.RegistrationData=[];
+        $scope.RegistrationData.push(UsernameR);
+        
+        $scope.RegistrationData.push(FirstnameR);
 
-        socket.emit('InsertRegistrationDetails');
+        $scope.RegistrationData.push(LastnameR);
+
+        $scope.RegistrationData.push(EmailR);
+        $scope.RegistrationData.push(PasswordR);
+        console.log($scope.RegistrationData);
+        socket.emit('InsertRegistrationDetails',$scope.RegistrationData);
     };
     
     
     //matched user details ---------------------------------
      socket.on('receiveUserProfileData', function(userData) {
         $log.log("in receiveUserProfileData");
-        
+        $location.path('/profile');
+        $route.reload();
     });
     
     
     //unmatched user details---------------------------
     socket.on('notReceiveUserProfileData', function() {
         $log.log("inside notReceiveUserProfileData");
-        $scope.notLoggedIn = true;
     });
     
     
+    socket.on('RegisteredUser', function() {
+    $location.path('/profile');
+    $route.reload();
+    });
     
     
     
