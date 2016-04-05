@@ -1,6 +1,15 @@
 var chitChatApp = angular.module('chitChatApp', ['ngRoute']);
 var socket = io.connect('https://' + document.domain + ':' + location.port + '/chitchat');
 
+chitChatApp.service("DataPersistence", function () {
+    
+    this.userSuccessfullyLoggedIn = false;
+    this.userSuccessfullyRegistered = false;    
+    this.firstname = "";
+    this.lastname = "";
+    this.username = "";
+    this.email = "";
+});
 
 // myApp.factory('socket', function (socketFactory) {
 //   return socketFactory();
@@ -40,10 +49,29 @@ chitChatApp.config(['$routeProvider',
              });
     }]);
     
-chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', function ($scope, $location ,$log,$route) {
-   $scope.RegistrationData=[];
-    // $scope.notLoggedIn = false;
+chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', 'DataPersistence', function ($scope, $location , $log, $route, DataPersistence) {
+   
+
+    $scope.RegistrationData=[];
+    $scope.firstname = DataPersistence.firstname;
+    $scope.lastname = DataPersistence.lastname;
+    $scope.username = DataPersistence.username;
+    $scope.email = DataPersistence.email;
     
+    // Add a watcher to update the service and update its properties
+    $scope.$watch('username', function () {
+         DataPersistence.username = $scope.username;
+     });
+     $scope.$watch('firstname', function () {
+         DataPersistence.firstname = $scope.firstname;
+     });
+    $scope.$watch('lastname', function () {
+         DataPersistence.lastname = $scope.lastname;
+     });
+    $scope.$watch('email', function () {
+         DataPersistence.email = $scope.email;
+     });  
+     
     socket.on('connect', function(){
          $log.log("--------------------------------Connected!--------------------------------------------");
      });
@@ -74,6 +102,10 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', f
 
         $scope.RegistrationData.push(EmailR);
         $scope.RegistrationData.push(PasswordR);
+        $scope.username=UsernameR;
+        $scope.email = EmailR;
+        $scope.firstname = FirstnameR;
+        $scope.lastname = LastnameR;
         console.log($scope.RegistrationData);
         socket.emit('InsertRegistrationDetails',$scope.RegistrationData);
     };
@@ -81,10 +113,15 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', f
     
     //matched user details ---------------------------------
      socket.on('receiveUserProfileData', function(userData) {
-        $log.log("in receiveUserProfileData");
-        $location.path('/profile');
+        $log.log(userData);
+        $scope.email = userData[0];
+        $scope.firstname = userData[1];
+        $scope.lastname = userData[2];
+        $scope.username = userData[3];
         $scope.checked = false;
+        $location.path('/profile');
         $route.reload();
+        $scope.$apply();
     });
     
     
