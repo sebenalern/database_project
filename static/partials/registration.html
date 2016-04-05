@@ -20,25 +20,25 @@
                 <div class="panel-body">
                     <h5 class="text-center">
                         SIGN UP</h5>
-                    <form method="POST" action="/profile" class="form form-signup" role="form" data-toggle="validator">
+                    <form ng-submit="RegistrationCheck(UsernameR,FirstnameR,LastnameR,EmailR,PasswordR)" class="form form-signup" role="form" data-toggle="validator">
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                            <input type="text" class="form-control" placeholder="Username" name="username" required/>
+                            <input type="text" ng-model="UsernameR" class="form-control" placeholder="Username" name="username" required/>
                         </div>
                     </div>
                     
                     <div class="form-group" required>
                         <div class="input-group" required>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                            <input type="text" class="form-control" placeholder="First Name" name = "firstname" required/>
+                            <input type="text" ng-model="FirstnameR" class="form-control" placeholder="First Name" name = "firstname" required/>
                         </div>
                     </div>
                         
                     <div class="form-group">
                          <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                            <input type="text" class="form-control" placeholder="Last Name" name="lastname" required/>
+                            <input type="text" ng-model="LastnameR" class="form-control" placeholder="Last Name" name="lastname" required/>
                         </div>
                     </div>
                     
@@ -48,7 +48,7 @@
                             <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
                             </span>
                             <!--<label for="inputEmail" class="control-label">Email</label>-->
-                            <input type="email" class="form-control" id="inputEmail" placeholder="Email" data-error="Bruh, that email address is invalid" name='email' required>
+                            <input type="email" ng-model="EmailR" class="form-control" id="inputEmail" placeholder="Email" data-error="Bruh, that email address is invalid" name='email' required>
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                            <input type="password" class="form-control" placeholder="Password" name = "password" id="FirstPassword" required/>
+                            <input type="password" ng-model="PasswordR" class="form-control" placeholder="Password" name = "password" id="FirstPassword" required/>
                         </div>
                     </div>
                     
