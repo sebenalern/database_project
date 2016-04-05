@@ -87,6 +87,7 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', f
     socket.on('notReceiveUserProfileData', function(){
         $log.log("inside notReceiveUserProfileData");
         $scope.checked=true;
+        $scope.$apply();
         
     });
     
