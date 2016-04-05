@@ -38,7 +38,8 @@ chitChatApp.config(['$routeProvider',
     
 chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', function ($scope, $location ,$log,$route) {
    $scope.RegistrationData=[];
-    $scope.notLoggedIn = false;
+    // $scope.notLoggedIn = false;
+    
     socket.on('connect', function(){
          $log.log("--------------------------------Connected!--------------------------------------------");
      });
@@ -83,8 +84,10 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', f
     
     
     //unmatched user details---------------------------
-    socket.on('notReceiveUserProfileData', function() {
+    socket.on('notReceiveUserProfileData', function(){
         $log.log("inside notReceiveUserProfileData");
+        $scope.checked=true;
+        
     });
     
     
