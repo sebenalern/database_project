@@ -37,7 +37,14 @@ chitChatApp.config(['$routeProvider',
     }]);
     
 chitChatApp.controller('chitChatApp', ['$scope', '$log', function ($scope, $log) {
-
+   
+    socket.on('connect', function(){
+         $log.log("--------------------------------Connected!--------------------------------------------");
+     });
+     
+     socket.on('disconnect', function() {
+        $log.log("---------------------------------Disconnected!-----------------------------------------");
+     });
 
     //---sending the login details to be checked from the database in the server side
      $scope.getLogin = function (email, password) {
@@ -51,10 +58,10 @@ chitChatApp.controller('chitChatApp', ['$scope', '$log', function ($scope, $log)
     };
     
     //---getting the registration detail from html page
-    $scope.RegistrationCheck = function (UserNameR,FirstNameR, LastNameR, EmailR, PasswordR) {
+    $scope.RegistrationCheck = function () {
         $log.log("Hey nickkkkkkkkkkkkk");
 
-        socket.emit('InsertRegistrationDetails',UserNameR,FirstNameR, LastNameR, EmailR, PasswordR);
+        socket.emit('InsertRegistrationDetails');
     };
     
     

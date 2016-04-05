@@ -14,18 +14,28 @@ app.config['SECRET_KEY'] = 'secret!'
 
 
 
+
+#create socketio app
+socketio = SocketIO(app)
+
+#
+# Called when the socket connects
+#
+@socketio.on('connect')
+def makeConnection():
+    print '-----------------------------Connection made!----------------------------------------'
+
+@socketio.on('disconnect')
+def dropConnection():
+    print '-----------------------------Disconnected!-------------------------------------------'
+
 def connectToDB():
     connectionString = 'dbname = chitchat user=chitchat_role password=password host=localhost'
     try:
         return psycopg2.connect(connectionString)
     except:
         print 'Can\'t connect to the database.'
-
-
-#create socketio app
-socketio = SocketIO(app)
-
-
+        
 @app.route('/profile', methods=['GET', 'POST'])
 def renderProfile(): 
     if request.method == 'POST':
