@@ -20,7 +20,7 @@
                 <div class="panel-body">
                     <h5 class="text-center">
                         SIGN UP</h5>
-                    <form ng-submit="RegistrationCheck()">
+                    <form ng-submit="RegistrationCheck()" class="form form-signup" role="form" data-toggle="validator" action="#/profile">
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
@@ -48,7 +48,7 @@
                             <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
                             </span>
                             <!--<label for="inputEmail" class="control-label">Email</label>-->
-                            <input type="email" ng-model="EmailR" class="form-control" id="inputEmail" placeholder="Email" data-error="" name='email' required>
+                            <input type="email" ng-model="EmailR" class="form-control" id="inputEmail" placeholder="Email" data-error="Bruh, that email address is invalid" name='email' required>
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>
@@ -66,9 +66,9 @@
                             <input type="password" data-match="#FirstPassword" class="form-control" placeholder="Confirm Password" name = "confirmPassword" required/>
                         </div>
                     </div>
+                 <input type="submit" class="btn btn-sm btn-primary btn-block" value = "SUBMIT" role="button">
+                    </input> 
                 
-                 <input type="submit" class="btn btn-sm btn-primary btn-block" value = "SUBMIT" >
-                </input> 
                   </div>
                
                     
@@ -78,7 +78,7 @@
     </div>
 </div>
 </div> 
-   
+
       <div class="container">
         <aside class="sidebar-left">
 

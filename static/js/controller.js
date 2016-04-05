@@ -30,7 +30,11 @@ chitChatApp.config(['$routeProvider',
              when('/edit_profile', {
                  templateUrl: '../static/partials/edit_profile.html/',
                  controller: "chitChatApp"
-             }).             
+             }).  
+             when('/contacts', {
+                 templateUrl: '../static/partials/contacts.html/',
+                 controller: "chitChatApp"
+             }).                
              otherwise({
                  redirectTo: '/'
              });
