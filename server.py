@@ -36,21 +36,25 @@ def connectToDB():
     except:
         print 'Can\'t connect to the database.'
         
-@app.route('/profile', methods=['GET', 'POST'])
-def renderProfile(): 
-    if request.method == 'POST':
+
+
+
+@socketio.on('InsertRegistrationDetails', namespace="/chitchat")
+def renderProfile(dataToBeRegistered):
+    print 'Data to be registered-----???????'
+    print dataToBeRegistered
+    try:    
         conn=connectToDB()
         cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        try:
-            print 'hello'
-            myUuid=uuid.uuid1()
-            print(cur.mogrify("insert into users values(%s,%s,%s,%s,%s,crypt(%s, gen_salt('bf')));",(str(myUuid), request.form['email'],request.form['firstname'], request.form['lastname'],request.form['username'],request.form['password'])))
-            cur.execute("insert into users values(%s,%s,%s,%s,%s,crypt(%s,gen_salt('bf')));",(str(myUuid),request.form['email'],request.form['firstname'], request.form['lastname'],request.form['username'],request.form['password']))
-            conn.commit()
-        except:
-            conn.rollback()
-    #socketio.emit('receiveUserProfileData', {"username": "Nick"})
+        print 'hello'
+        myUuid=uuid.uuid1()
+        print(cur.mogrify("insert into users values(%s,%s,%s,%s,%s,crypt(%s, gen_salt('bf')));",(str(myUuid), dataToBeRegistered[3],dataToBeRegistered[1],dataToBeRegistered[2],dataToBeRegistered[0],dataToBeRegistered[4])))
+        cur.execute("insert into users values(%s,%s,%s,%s,%s,crypt(%s,gen_salt('bf')));",(str(myUuid),dataToBeRegistered[3],dataToBeRegistered[1],dataToBeRegistered[2],dataToBeRegistered[0],dataToBeRegistered[4]))
+        conn.commit()
+    except:
+        conn.rollback()
     
+    emit('RegisteredUser', namespace="/chitchat")
 
 
 
@@ -72,6 +76,9 @@ def renderLoginPage(UserDetails):
             emit("notReceiveUserProfileData", namespace = '/chitchat')
     except:
         print 'could not excess login table'
+        
+        
+        
 
 
 @app.route("/")
