@@ -1,6 +1,7 @@
 var chitChatApp = angular.module('chitChatApp', ['ngRoute', 'ui.bootstrap']);
 var socket = io.connect('https://' + document.domain + ':' + location.port + '/chitchat');
 
+
 chitChatApp.service("DataPersistence", function () {
     
     this.userSuccessfullyLoggedIn = false;
@@ -144,7 +145,7 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     $route.reload();
     });
     
-    socket.on('getAllUsers', function (user) {
+    socket.once('getAllUsers', function (user) {
         $log.log("inside getAllUsers");
         $scope.listOfUsers.push(user);
         $scope.$apply();
@@ -152,5 +153,5 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
         
         
     });
-    
+
 }]);

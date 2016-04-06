@@ -25,49 +25,41 @@
 
 
    <div class="col-lg-6 col-md-offset-6">
-    <div class="input-group">
-      <input type="text" ng-model="searchBox" class="form-control" placeholder="Search for...">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Add Contact</button>
-          <div class="list-group" ng-repeat="user in listOfUsers | filter: searchBox">
-  <button type="button" class="list-group-item" >{{ user.username }}</button>
+    <!--<div class="input-group">-->
+      <input type="text" ng-model="searchBox" class="form-control" placeholder="Search for..." >
+<!--      <span class="input-group-btn">-->
+<!--        <button class="btn btn-default" type="button">Add Contact</button>-->
+<!--          <div class="list-group" ng-repeat="user in listOfUsers | filter: searchBox">-->
+    <!--<li >-->
+    <!--   {{ user[0] }}-->
+    <!-- </li>-->
 
-</div>
-      </span>
-      
-    </div><!-- /input-group -->
+<!--</div>-->
+<!--      </span>-->
+<!--    </div><!-- /input-group -->
   </div><!-- /.col-lg-6 -->
 
-<!--  <table class="table table-hover">-->
-<!--   <thead>-->
-<!--      <tr>-->
-<!--        <th>Username</th>-->
-<!--        <th>Firstname</th>-->
-<!--        <th>Lastname</th>-->
-<!--        <th>Email</th>-->
-<!--      </tr>-->
-<!--   </thead>-->
-<!--    <tbody>-->
-<!--      <tr>-->
-<!--        <td>username</td>-->
-<!--        <td>John</td>-->
-<!--        <td>Doe</td>-->
-<!--        <td>john@example.com</td>-->
-<!--      </tr>-->
-<!--      <tr>-->
-<!--        <td>Mary</td>-->
-<!--        <td>Moe</td>-->
-<!--        <td>mary@example.com</td>-->
-<!--      </tr>-->
-<!--      <tr>-->
-<!--        <td>July</td>-->
-<!--        <td>Dooley</td>-->
-<!--        <td>july@example.com</td>-->
-<!--      </tr>-->
-<!--  </tbody>-->
-<!--  </table>-->
-<!--</div>-->
-<!--</div>-->
+  <table class="table table-hover">
+   <thead>
+      <tr>
+        <th>Username</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+      </tr>
+   </thead>
+    <tbody>
+      <tr ng-repeat="user in listOfUsers | filter: searchBox">
+        <td ng-bind="user[0]"> </td>
+        <td ng-bind="user[1]"> </td>
+        <td ng-bind="user[2]"> </td>
+        <td ng-bind="user[3]"> </td>
+      </tr>
+   
+  </tbody>
+  </table>
+</div>
+</div>
         <div class="container">
         <aside class="sidebar-left">
 
