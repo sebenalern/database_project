@@ -1,4 +1,4 @@
-var chitChatApp = angular.module('chitChatApp', ['ngRoute']);
+var chitChatApp = angular.module('chitChatApp', ['ngRoute', 'ui.bootstrap']);
 var socket = io.connect('https://' + document.domain + ':' + location.port + '/chitchat');
 
 chitChatApp.service("DataPersistence", function () {
@@ -9,6 +9,7 @@ chitChatApp.service("DataPersistence", function () {
     this.lastname = "";
     this.username = "";
     this.email = "";
+    this.listOfUsers = [];
 });
 
 // myApp.factory('socket', function (socketFactory) {
@@ -57,8 +58,12 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     $scope.lastname = DataPersistence.lastname;
     $scope.username = DataPersistence.username;
     $scope.email = DataPersistence.email;
+    $scope.listOfUsers = DataPersistence.listOfUsers;
     
     // Add a watcher to update the service and update its properties
+    $scope.$watch('listOfUsers', function () {
+         DataPersistence.listOfUsers = $scope.listOfUsers;
+     });
     $scope.$watch('username', function () {
          DataPersistence.username = $scope.username;
      });
@@ -139,6 +144,13 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     $route.reload();
     });
     
-    
+    socket.on('getAllUsers', function (user) {
+        $log.log("inside getAllUsers");
+        $scope.listOfUsers.push(user);
+        $scope.$apply();
+        $log.log($scope.listOfUsers);
+        
+        
+    });
     
 }]);

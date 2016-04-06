@@ -13,7 +13,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 
 
-
+global connected
+connected = False
 
 #create socketio app
 socketio = SocketIO(app)
@@ -24,6 +25,17 @@ socketio = SocketIO(app)
 @socketio.on('connect')
 def makeConnection():
     print '-----------------------------Connection made!----------------------------------------'
+    # global connected
+    # if not connected:
+    #         conn=connectToDB()
+    #         cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    #         print(cur.mogrify("select email, first_name,last_name,username from users;"))
+    #         cur.execute("""select email, first_name, last_name, username from users;""")
+    #         loginQueryFetch=cur.fetchall()
+    #         for user in loginQueryFetch:
+    #             print user
+    #             connected = True
+    #             emit('getAllUsers', user, namespace = '/chitchat')
 
 @socketio.on('disconnect')
 def dropConnection():
@@ -77,7 +89,11 @@ def renderLoginPage(UserDetails):
     except:
         print 'could not excess login table'
         
-        
+    cur.execute("""select email, first_name, last_name, username from users;""")
+    loginQueryFetch=cur.fetchall()
+    for user in loginQueryFetch:
+        print user
+        emit('getAllUsers', user, namespace = '/chitchat')  
         
 
 
