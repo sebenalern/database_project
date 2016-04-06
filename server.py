@@ -89,13 +89,16 @@ def renderLoginPage(UserDetails):
     except:
         print 'could not excess login table'
         
+        
+@socketio.on("getUsersToAdd", namespace = "/chitchat")
+def getUsersToAdd():
+    conn=connectToDB()
+    cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     cur.execute("""select email, first_name, last_name, username from users;""")
     loginQueryFetch=cur.fetchall()
     for user in loginQueryFetch:
         print user
         emit('getAllUsers', user, namespace = '/chitchat')  
-        
-
 
 @app.route("/")
 def index():

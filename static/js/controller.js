@@ -10,6 +10,7 @@ chitChatApp.service("DataPersistence", function () {
     this.lastname = "";
     this.username = "";
     this.email = "";
+    this.showResultsClicked = false;
     this.listOfUsers = [];
 });
 
@@ -60,8 +61,12 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     $scope.username = DataPersistence.username;
     $scope.email = DataPersistence.email;
     $scope.listOfUsers = DataPersistence.listOfUsers;
+    $scope.showResultsClicked = DataPersistence.showResultsClicked;
     
     // Add a watcher to update the service and update its properties
+    $scope.$watch('showResultsClicked', function () {
+         DataPersistence.showResultsClicked = $scope.showResultsClicked;
+     });
     $scope.$watch('listOfUsers', function () {
          DataPersistence.listOfUsers = $scope.listOfUsers;
      });
@@ -145,13 +150,28 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     $route.reload();
     });
     
-    socket.once('getAllUsers', function (user) {
+    socket.on('getAllUsers', function (user) {
         $log.log("inside getAllUsers");
         $scope.listOfUsers.push(user);
-        $scope.$apply();
+       
         $log.log($scope.listOfUsers);
         
+         $scope.$apply();
         
     });
-
+    
+    $scope.showUsersToAdd = function () {
+      $scope.listOfUsers= [];
+      socket.emit("getUsersToAdd");
+      $scope.showResultsClicked = true;
+      $scope.$apply();
+        
+    };
+    
+    // Finish sending email to server and then add a friendship between email clicked and email of person signed in
+    $scope.addFriend = function (email) 
+    {
+        $scope.showResultsClicked = false;
+        $log.log(email);
+    };
 }]);
