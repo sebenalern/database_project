@@ -20,23 +20,22 @@ ALTER DEFAULT PRIVILEGES
 SET SESSION AUTHORIZATION 'chitchat_role';
 
 CREATE TABLE users (
-                    uuid text NOT NULL,
                     email text NOT NULL,
                     first_name text NOT NULL,
                     last_name text NOT NULL,
                     username text NOT NULL,
                     password text NOT NULL,
-                    PRIMARY KEY (uuid)
+                    PRIMARY KEY (email)
                    );
                     
 CREATE TABLE messages (
                         -- id serial primary key
-                        uuid text NOT NULL REFERENCES users(uuid),
+                        email text NOT NULL REFERENCES users(email),
                         message text NOT NULL
                       );
                     
 CREATE TABLE friends (
                         friends_id serial PRIMARY KEY,
-                        uuid1 text REFERENCES users(uuid),
-                        uuid2 text REFERENCES users(uuid)
+                        email1 text REFERENCES users(email),
+                        email2 text REFERENCES users(email)
                      );
