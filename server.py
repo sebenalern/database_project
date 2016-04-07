@@ -120,6 +120,7 @@ def addFriend(user, friend):
     except:
         conn.rollback()
     
+    # TODO send a message back to client that the friend was added and alert user
 
 @app.route("/")
 def index():
