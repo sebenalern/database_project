@@ -58,10 +58,8 @@ def renderProfile(dataToBeRegistered):
     try:    
         conn=connectToDB()
         cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        print 'hello'
-        myUuid=uuid.uuid1()
-        print(cur.mogrify("insert into users values(%s,%s,%s,%s,%s,crypt(%s, gen_salt('bf')));",(str(myUuid), dataToBeRegistered[3],dataToBeRegistered[1],dataToBeRegistered[2],dataToBeRegistered[0],dataToBeRegistered[4])))
-        cur.execute("insert into users values(%s,%s,%s,%s,%s,crypt(%s,gen_salt('bf')));",(str(myUuid),dataToBeRegistered[3],dataToBeRegistered[1],dataToBeRegistered[2],dataToBeRegistered[0],dataToBeRegistered[4]))
+        print(cur.mogrify("insert into users values(%s,%s,%s,%s,crypt(%s, gen_salt('bf')));", (dataToBeRegistered[3],dataToBeRegistered[1],dataToBeRegistered[2],dataToBeRegistered[0],dataToBeRegistered[4])))
+        cur.execute("insert into users values(%s,%s,%s,%s,crypt(%s,gen_salt('bf')));", (dataToBeRegistered[3],dataToBeRegistered[1],dataToBeRegistered[2],dataToBeRegistered[0],dataToBeRegistered[4]))
         conn.commit()
     except:
         conn.rollback()
@@ -99,6 +97,29 @@ def getUsersToAdd():
     for user in loginQueryFetch:
         print user
         emit('getAllUsers', user, namespace = '/chitchat')  
+        
+@socketio.on("addFriend", namespace = "/chitchat")
+def addFriend(user, friend):
+    print user
+    print friend
+    # inserting a friend relationship (1, 2)
+    try:    
+        conn=connectToDB()
+        cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        print(cur.mogrify("""insert into friends (email1, email2) values (%s, %s);""", (user, friend)))
+        cur.execute("""insert into friends (email1, email2) values (%s, %s);""", (user, friend))
+        conn.commit()
+    except:
+        conn.rollback()
+    
+    # insert the same friend relationship (2, 1)
+    try:    
+        print(cur.mogrify("""insert into friends (email1, email2) values (%s, %s);""", (friend, user)))
+        cur.execute("""insert into friends (email1, email2) values (%s, %s);""", (friend, user))
+        conn.commit()
+    except:
+        conn.rollback()
+    
 
 @app.route("/")
 def index():

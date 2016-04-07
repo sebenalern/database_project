@@ -169,9 +169,10 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     };
     
     // Finish sending email to server and then add a friendship between email clicked and email of person signed in
-    $scope.addFriend = function (email) 
+    $scope.addFriend = function (emailOfFriend) 
     {
         $scope.showResultsClicked = false;
-        $log.log(email);
+        $log.log(emailOfFriend);
+        socket.emit("addFriend", $scope.email, emailOfFriend);
     };
 }]);
