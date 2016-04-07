@@ -41,8 +41,12 @@ chitChatApp.config(['$routeProvider',
              when('/edit_profile', {
                  templateUrl: '../static/partials/edit_profile.html/',
                  controller: "chitChatApp"
+             }).
+             when('/chatBox', {
+                 templateUrl: '../static/partials/chatBox.html/',
+                 controller: "chitChatApp"
              }).  
-             when('/contacts', {
+            when('/contacts', {
                  templateUrl: '../static/partials/contacts.html/',
                  controller: "chitChatApp"
              }).                
@@ -120,11 +124,13 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     //matched user details ---------------------------------
      socket.on('receiveUserProfileData', function(userData) {
         $log.log(userData);
+        
         $scope.email = userData[0];
         $scope.firstname = userData[1];
         $scope.lastname = userData[2];
         $scope.username = userData[3];
         $scope.checked = false;
+        socket.emit('bringUsersFriends', 'l@gmail.com');
         $location.path('/profile');
         $route.reload();
         $scope.$apply();

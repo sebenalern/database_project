@@ -16,6 +16,8 @@ app.config['SECRET_KEY'] = 'secret!'
 global connected
 connected = False
 
+
+
 #create socketio app
 socketio = SocketIO(app)
 
@@ -83,7 +85,6 @@ def renderLoginPage(UserDetails):
         print loginQueryFetch
         if loginQueryFetch is not None:
             emit("receiveUserProfileData", loginQueryFetch, namespace = '/chitchat')
-            
         else:
             emit("notReceiveUserProfileData", namespace = '/chitchat')
     except:
@@ -94,6 +95,27 @@ def renderLoginPage(UserDetails):
     for user in loginQueryFetch:
         print user
         emit('getAllUsers', user, namespace = '/chitchat')  
+        
+
+@socketio.on('bringUsersFriends', namespace='/chitchat')
+def FindUsersFriends(Useremail):
+    print 'I am in FindUsersFriends-------------------------------'
+    try:
+        print 'Am in try block of UserEmail'
+        conn=connectToDB()
+        print 'I have connected to database'
+        cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        print 'we have reached after cursors'
+        print(cur.mogrify("select userfriend from friendList where email=%s;", (Useremail, )))
+        
+        cur.execute("select userfriend from friendList where email=%s;", (Useremail, ))
+        print 'did we come over here after execute statement'
+        FriendsFetch=cur.fetchall()
+        print 'friends in the table are----------------------'
+        
+        print FriendsFetch
+    except:
+        print 'could not excess login table'
         
 
 
