@@ -13,6 +13,7 @@ chitChatApp.service("DataPersistence", function () {
     this.email = "";
     this.showResultsClicked = false;
     this.listOfUsers = [];
+    this.AllUsersFriends=[];
 });
 
 // myApp.factory('socket', function (socketFactory) {
@@ -60,7 +61,7 @@ chitChatApp.config(['$routeProvider',
     
 chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', 'DataPersistence', function ($scope, $location , $log, $route, DataPersistence) {
    
-    $scope.AllUsersFriends=[];
+    $scope.AllUsersFriends=DataPersistence;
     $scope.RegistrationData=[];
     $scope.firstname = DataPersistence.firstname;
     $scope.lastname = DataPersistence.lastname;
@@ -70,6 +71,9 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     $scope.showResultsClicked = DataPersistence.showResultsClicked;
     
     // Add a watcher to update the service and update its properties
+    $scope.$watch("AllUsersFriends", function () {
+       DataPersistence.AllUsersFriends = $scope.AllUsersFriends; 
+    });
     $scope.$watch('showResultsClicked', function () {
          DataPersistence.showResultsClicked = $scope.showResultsClicked;
      });
