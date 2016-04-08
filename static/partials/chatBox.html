@@ -4,55 +4,56 @@
                   <h3>welcome to Chat<span class="label label-info"></span></h3>
                   <div class="button-right">
                   <a href="#/mainPageLayout" class="btn btn-info" role="button">Log out</a>
-               </div>
-              
-        </nav>      
-        
-        
-        
-        
-         <div class="col-sm-4 col-sm-offset-1">      
-<div class="container">
-  
-  </br>
-  </br>
-  </br>
-  
-
+                     <div class="container">
+                 </div>   
+               </div>  
+        </nav> 
+       
+        <div class="container">
+  <h2>Hover Rows</h2>
+  <p>The .table-hover class enables a hover state on table rows:</p>            
   <table class="table table-hover">
-   <thead>
+    <thead>
       <tr>
-        <th>Email</th>
+        <th>Friends</th>
       </tr>
-   </thead>
+    </thead>
     <tbody>
-      <tr ng-repeat="user in listOfFriends">
-        <td ng-bind="user[0]"> </td>
+        <tr ng-repeat="friends in AllUsersFriends">
+                                        <td ng-bind="friends">aaaaaaaaaa</td>
       </tr>
-   
-  </tbody>
+    </tbody>
   </table>
 </div>
-</div> 
         
         <div class="container">	
+	    	
+           
+        
 	    	<aside class="sidebar-left">
-		
+	    	    
+                        
 				<a class="company-logo" href="#">ChitChat
 				  	<span img src="data:image/jpeg;base64," aria-hidden="true"></span>
 				</a>
+				
+				
+
+
 			
 				<div class="sidebar-links">
+					
 					<a href="#" class="btn btn-info" role="button">Home</a>
 					<a href="#/edit_profile" class="btn btn-info" role="button">Edit Profile</a>
 					<a href="#/contacts" class="btn btn-info" role="button">Contacts</a>
 					<a href="#/chatBox" class="btn btn-info" role="button">Chat</a>
 				</div>
-			</aside>
+			</aside>    
+			
 
 		</div>
 	
-	
+	    
 	
 	    <nav class="navbar navbar-inverse navbar-fixed-bottom footer">
         	<div class="container-fluid">

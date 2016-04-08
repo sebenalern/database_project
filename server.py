@@ -12,7 +12,6 @@ from psycopg2.extensions import adapt
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 
-
 global connected
 connected = False
 
@@ -27,18 +26,7 @@ socketio = SocketIO(app)
 @socketio.on('connect')
 def makeConnection():
     print '-----------------------------Connection made!----------------------------------------'
-    # global connected
-    # if not connected:
-    #         conn=connectToDB()
-    #         cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    #         print(cur.mogrify("select email, first_name,last_name,username from users;"))
-    #         cur.execute("""select email, first_name, last_name, username from users;""")
-    #         loginQueryFetch=cur.fetchall()
-    #         for user in loginQueryFetch:
-    #             print user
-    #             connected = True
-    #             emit('getAllUsers', user, namespace = '/chitchat')
-
+   
 @socketio.on('disconnect')
 def dropConnection():
     print '-----------------------------Disconnected!-------------------------------------------'
@@ -99,30 +87,24 @@ def getUsersToAdd():
         print user
         emit('getAllUsers', user, namespace = '/chitchat')  
         
-<<<<<<< HEAD
 
 @socketio.on('bringUsersFriends', namespace='/chitchat')
 def FindUsersFriends(Useremail):
-    print 'I am in FindUsersFriends-------------------------------'
-    try:
-        print 'Am in try block of UserEmail'
-        conn=connectToDB()
-        print 'I have connected to database'
-        cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        print 'we have reached after cursors'
-        print(cur.mogrify("select userfriend from friendList where email=%s;", (Useremail, )))
-        
-        cur.execute("select userfriend from friendList where email=%s;", (Useremail, ))
-        print 'did we come over here after execute statement'
-        FriendsFetch=cur.fetchall()
-        print 'friends in the table are----------------------'
-        
-        print FriendsFetch
-    except:
-        print 'could not excess login table'
+    print Useremail
+    conn=connectToDB()
+    cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    curFetch1=[]
+    print(cur.mogrify("select users.first_name from users join friends on friends.email2=users.email where friends.email1=%s;",(Useremail,)))
+    cur.execute("select users.first_name from users join friends on friends.email2=users.email where friends.email1=%s;",(Useremail,))
+    curFetch=cur.fetchall()
+    for rows in curFetch:
+        for row in rows:
+            curFetch1.append(row)
+    print curFetch1       
+    emit('AllFriends', curFetch1)
+
         
 
-=======
 @socketio.on("addFriend", namespace = "/chitchat")
 def addFriend(user, friend):
     print user
@@ -145,7 +127,6 @@ def addFriend(user, friend):
     except:
         conn.rollback()
     
->>>>>>> 7cae4915a7cb42cd1897ced843c947f7a91252f4
 
 @app.route("/")
 def index():

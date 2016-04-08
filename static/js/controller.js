@@ -4,6 +4,7 @@ var socket = io.connect('https://' + document.domain + ':' + location.port + '/c
 
 chitChatApp.service("DataPersistence", function () {
     
+    
     this.userSuccessfullyLoggedIn = false;
     this.userSuccessfullyRegistered = false;    
     this.firstname = "";
@@ -58,7 +59,7 @@ chitChatApp.config(['$routeProvider',
     
 chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', 'DataPersistence', function ($scope, $location , $log, $route, DataPersistence) {
    
-
+    $scope.AllUsersFriends=[];
     $scope.RegistrationData=[];
     $scope.firstname = DataPersistence.firstname;
     $scope.lastname = DataPersistence.lastname;
@@ -129,17 +130,21 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     //matched user details ---------------------------------
      socket.on('receiveUserProfileData', function(userData) {
         $log.log(userData);
-        
         $scope.email = userData[0];
+        console.log($scope.email);
         $scope.firstname = userData[1];
         $scope.lastname = userData[2];
         $scope.username = userData[3];
+        console.log($scope.username);
+        $scope.$apply();
         $scope.checked = false;
-        socket.emit('bringUsersFriends', 'l@gmail.com');
+        socket.emit('bringUsersFriends', $scope.email);
         $location.path('/profile');
         $route.reload();
         $scope.$apply();
     });
+    
+    
     
     
     //unmatched user details---------------------------
@@ -166,13 +171,25 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
         
     });
     
+    socket.on("AllFriends",function (Friends){
+      $log.log('so the friends are');
+      $scope.AllUsersFriends=Friends;
+      console.log($scope.AllUsersFriends);
+      $scope.$apply();
+    });
+    
+    
+    
     $scope.showUsersToAdd = function () {
       $scope.listOfUsers= [];
       socket.emit("getUsersToAdd");
       $scope.showResultsClicked = true;
       $scope.$apply();
+      
         
     };
+    
+    
     
     // Finish sending email to server and then add a friendship between email clicked and email of person signed in
     $scope.addFriend = function (emailOfFriend) 
