@@ -41,7 +41,7 @@ def connectToDB():
 
 
 
-@socketio.on('InsertRegistrationDetails', namespace="/chitchat")
+@socketio.on('InsertRegistrationDetails')
 def renderProfile(dataToBeRegistered):
     print 'Data to be registered-----???????'
     print dataToBeRegistered
@@ -54,11 +54,11 @@ def renderProfile(dataToBeRegistered):
     except:
         conn.rollback()
     
-    emit('RegisteredUser', namespace="/chitchat")
+    emit('RegisteredUser')
 
 
 
-@socketio.on("LoginDetails", namespace="/chitchat")
+@socketio.on("LoginDetails")
 def renderLoginPage(UserDetails):
     print 'helooooooo we are in login page------------'
     try:
@@ -70,14 +70,14 @@ def renderLoginPage(UserDetails):
         loginQueryFetch=cur.fetchone()
         print loginQueryFetch
         if loginQueryFetch is not None:
-            emit("receiveUserProfileData", loginQueryFetch, namespace = '/chitchat')
+            emit("receiveUserProfileData", loginQueryFetch)
         else:
-            emit("notReceiveUserProfileData", namespace = '/chitchat')
+            emit("notReceiveUserProfileData")
     except:
         print 'could not excess login table'
         
         
-@socketio.on("getUsersToAdd", namespace = "/chitchat")
+@socketio.on("getUsersToAdd")
 def getUsersToAdd():
     conn=connectToDB()
     cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -85,10 +85,10 @@ def getUsersToAdd():
     loginQueryFetch=cur.fetchall()
     for user in loginQueryFetch:
         print user
-        emit('getAllUsers', user, namespace = '/chitchat')  
+        emit('getAllUsers', user)  
         
 
-@socketio.on('bringUsersFriends', namespace='/chitchat')
+@socketio.on('bringUsersFriends')
 def FindUsersFriends(Useremail):
     print Useremail
     conn=connectToDB()
@@ -98,14 +98,16 @@ def FindUsersFriends(Useremail):
     cur.execute("select users.first_name from users join friends on friends.email2=users.email where friends.email1=%s;",(Useremail,))
     curFetch=cur.fetchall()
     for rows in curFetch:
-        for row in rows:
-            curFetch1.append(row)
+        print "printing rows"
+        print rows
+        curFetch1.append(rows)
+            
     print curFetch1       
     emit('AllFriends', curFetch1)
 
         
 
-@socketio.on("addFriend", namespace = "/chitchat")
+@socketio.on("addFriend")
 def addFriend(user, friend):
     print user
     print friend
