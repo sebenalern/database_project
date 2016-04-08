@@ -1,0 +1,113 @@
+
+
+
+<div>
+        <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+              <div class="container" ng-model="username">
+                   <h3>Signed in as,<span class="label label-info">{{username}}</span></h3>
+                  <div class="button-right">
+                   
+                    
+                    <a href="#/mainPageLayout" class="btn btn-info" role="button">Log out</a>
+                    </div>
+              </div>
+              
+        </nav>
+        
+        <div class="col-sm-4 col-sm-offset-1">      
+<div class="container">
+  
+  </br>
+  </br>
+  </br>
+  
+  <p> Search for a user you want to add. Then click show results to see who you found. </p>
+  <p>Click on the email of the person you want to add.</p>
+  </br>
+
+
+   <div class="col-lg-6 col-md-offset-6">
+    <!--<div class="input-group">-->
+      <input type="text" ng-model="searchBox" class="form-control" placeholder="Search for..." >
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="button" ng-click="showUsersToAdd()">Show Results</button>
+
+   </span>
+</div><!-- /input-group
+  </div><!-- /.col-lg-6 -->
+
+  <table ng-show="showResultsClicked" class="table table-hover">
+   <thead>
+      <tr>
+        <th>Username</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+      </tr>
+   </thead>
+    <tbody>
+      <tr ng-repeat="user in listOfUsers | filter: searchBox">
+        <td ng-bind="user[3]"> 
+          asdfafds
+        </td>
+        <td ng-bind="user[1]"> 
+          asdfasdf
+        </td>
+        <td ng-bind="user[2]"> 
+          asdfsdf
+        </td>
+        <td > 
+          <a href="#/profile" ng-bind="user[0]" ng-click="addFriend(user[0])">
+                First column
+          </a>
+        </td>
+      </tr>
+   
+  </tbody>
+  </table>
+</div>
+</div>
+        <div class="container">
+        <aside class="sidebar-left">
+
+		<a class="company-logo" href="#">ChitChat
+		  <span img src="data:image/jpeg;base64," aria-hidden="true"></span>
+		</a>
+		
+		<div class="sidebar-links">
+			<a href="#/profile" class="btn btn-info" role="button">Home</a>
+			<a href="#/edit_profile" class="btn btn-info" role="button">Edit Profile</a>
+			<a href="#/add_friends" class="btn btn-info" role="button">Add Friends</a>
+			<a href="#" class="btn btn-info" role="button">Chat</a>
+		</div>
+	</aside>
+
+	</div>
+	        
+
+	        
+	        
+	        <nav class="navbar navbar-inverse navbar-fixed-bottom footer">
+          <div class="container-fluid">
+            <div class="navbar-header">
+                  <p class="navbar-brand" >&copy 2016 ChitChat All Rights Reserved | Designed by Laila Shaikh and Nicholas Sebenaler</p>
+            </div>
+            <ul class="nav navbar-nav">
+            </ul>
+          </div>
+        </nav>
+		<script>
+
+		$(function () {
+
+			var links = $('.sidebar-links > a');
+
+			links.on('click', function () {
+
+				links.removeClass('selected');
+				$(this).addClass('selected');
+
+			});
+		});
+		</script>
+</div>

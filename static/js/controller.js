@@ -48,8 +48,9 @@ chitChatApp.config(['$routeProvider',
                  templateUrl: '../static/partials/chatBox.html/',
                  controller: "chitChatApp"
              }).  
-            when('/contacts', {
-                 templateUrl: '../static/partials/contacts.html/',
+
+             when('/add_friends', {
+                 templateUrl: '../static/partials/add_friends.html/',
                  controller: "chitChatApp"
              }).                
              otherwise({
@@ -123,7 +124,7 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
         $scope.firstname = FirstnameR;
         $scope.lastname = LastnameR;
         console.log($scope.RegistrationData);
-        socket.emit('InsertRegistrationDetails',$scope.RegistrationData);
+        socket.emit('InsertRegistrationDetails', $scope.RegistrationData);
     };
     
     
@@ -135,13 +136,13 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
         $scope.firstname = userData[1];
         $scope.lastname = userData[2];
         $scope.username = userData[3];
-        console.log($scope.username);
-        $scope.$apply();
+
+        $log.log($scope.username + "  After username is set");
         $scope.checked = false;
         socket.emit('bringUsersFriends', $scope.email);
-        $location.path('/profile');
-        $route.reload();
         $scope.$apply();
+        // $location.path('/profile');
+        // $route.reload();
     });
     
     
@@ -157,8 +158,7 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     
     
     socket.on('RegisteredUser', function() {
-    $location.path('/profile');
-    $route.reload();
+    
     });
     
     socket.on('getAllUsers', function (user) {
@@ -198,4 +198,15 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
         $log.log(emailOfFriend);
         socket.emit("addFriend", $scope.email, emailOfFriend);
     };
+    
+    // Resets all user details when the user logged out
+    $scope.logout = function () 
+    {
+        $log.log("inside logout--------------------------");
+        $scope.firstname = "";
+        $scope.lastname = "";
+        $scope.username = "";
+        $scope.email = "";
+    };
+    
 }]);

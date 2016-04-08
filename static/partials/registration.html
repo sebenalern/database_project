@@ -20,7 +20,7 @@
                 <div class="panel-body">
                     <h5 class="text-center">
                         SIGN UP</h5>
-                    <form ng-submit="RegistrationCheck(UsernameR,FirstnameR,LastnameR,EmailR,PasswordR)" class="form form-signup" role="form" data-toggle="validator">
+                    <form class="form form-signup" role="form" data-toggle="validator">
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
@@ -66,7 +66,9 @@
                             <input type="password" data-match="#FirstPassword" class="form-control" placeholder="Confirm Password" name = "confirmPassword" required/>
                         </div>
                     </div>
-                 <input type="submit" class="btn btn-sm btn-primary btn-block" value = "SUBMIT" role="button">
+                                 <!--<input type="submit" class="btn btn-sm btn-primary btn-block" value = "SUBMIT" role="button">-->
+
+                 <a href="#/profile" class="btn btn-info" ng-click="RegistrationCheck(UsernameR,FirstnameR,LastnameR,EmailR,PasswordR)" role="button">Sign in</a>
                     </input> 
                 
                   </div>
