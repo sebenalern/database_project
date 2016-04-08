@@ -1,5 +1,5 @@
-var chitChatApp = angular.module('chitChatApp', ['ngRoute', 'ui.bootstrap']);
-var socket = io.connect('https://' + document.domain + ':' + location.port + '/chitchat');
+var chitChatApp = angular.module('chitChatApp', ['ngRoute', 'ui.bootstrap', 'btford.socket-io']);
+//var socket = io.connect('https://' + document.domain + ':' + location.port + '/chitchat');
 
 
 chitChatApp.service("DataPersistence", function () {
@@ -13,11 +13,13 @@ chitChatApp.service("DataPersistence", function () {
     this.email = "";
     this.showResultsClicked = false;
     this.listOfUsers = [];
+    this.AllUsersFriends=[];
 });
 
-// myApp.factory('socket', function (socketFactory) {
-//   return socketFactory();
-// });
+chitChatApp.factory('socket', function (socketFactory) {
+  return socketFactory();
+});
+
 
 
 chitChatApp.config(['$routeProvider',
@@ -58,9 +60,9 @@ chitChatApp.config(['$routeProvider',
              });
     }]);
     
-chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', 'DataPersistence', function ($scope, $location , $log, $route, DataPersistence) {
+chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', 'DataPersistence', "socket", function ($scope, $location , $log, $route, DataPersistence, socket) {
    
-    $scope.AllUsersFriends=[];
+    $scope.AllUsersFriends=DataPersistence.AllUsersFriends;
     $scope.RegistrationData=[];
     $scope.firstname = DataPersistence.firstname;
     $scope.lastname = DataPersistence.lastname;
@@ -70,6 +72,9 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     $scope.showResultsClicked = DataPersistence.showResultsClicked;
     
     // Add a watcher to update the service and update its properties
+    $scope.$watch("AllUsersFriends", function () {
+       DataPersistence.AllUsersFriends = $scope.AllUsersFriends; 
+    });
     $scope.$watch('showResultsClicked', function () {
          DataPersistence.showResultsClicked = $scope.showResultsClicked;
      });
@@ -129,7 +134,9 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     
     
     //matched user details ---------------------------------
-     socket.on('receiveUserProfileData', function(userData) {
+    // Using angular-socket-io to stop multiple message handlers from being created
+     socket.forward('receiveUserProfileData', $scope);
+     $scope.$on('socket:receiveUserProfileData', function(ev, userData) {
         $log.log(userData);
         $scope.email = userData[0];
         console.log($scope.email);
@@ -171,7 +178,8 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
         
     });
     
-    socket.on("AllFriends",function (Friends){
+    socket.forward("AllFriends", $scope);
+    $scope.$on("socket:AllFriends",function (ev, Friends){
       $log.log('so the friends are');
       $scope.AllUsersFriends=Friends;
       console.log($scope.AllUsersFriends);
