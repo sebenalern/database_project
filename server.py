@@ -58,6 +58,35 @@ def renderProfile(dataToBeRegistered):
 
 
 
+
+@socketio.on('RoomClicked', namespace="/iss")
+def GrabRoomMessages(RoomNumber):
+    print 'The room which is clicked is ?????'
+    print RoomNumber;    
+    try:
+        print 'we are inside a try block'
+        conn=connectToDB()
+        print 'after db_connect method'
+        cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        print 'After conn.cursor method'
+        print(cur.mogrify("select username, messages from rooms where roomno=%s;",(RoomNumber,)))
+        cur.execute("select username, messages from rooms where roomno=%s;",(RoomNumber,))
+        print 'cur.execution done'
+        join_room(RoomNumber)
+        DBresults=cur.fetchall(); 
+        print 'DBresults are :'
+        print DBresults
+        
+        for rows in DBresults:
+            print rows
+            print rows[1]+rows[0]
+            sendDatabaseMsg={'text':rows[1], 'name':rows[0]}
+            emit('message', sendDatabaseMsg)
+    except: 
+        "could access database properly"
+        
+
+
 @socketio.on("LoginDetails")
 def renderLoginPage(UserDetails):
     print 'helooooooo we are in login page------------'

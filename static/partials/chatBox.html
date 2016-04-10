@@ -1,77 +1,94 @@
  <div>
-        <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
-              <div class="container" ng-model="username">
-                  <h3>welcome to Chat<span class="label label-info"></span></h3>
-                  <div class="button-right">
-                  <a href="#/mainPageLayout" class="btn btn-info" role="button">Log out</a>
-                     <div class="container">
-                 </div>   
-               </div>  
-        </nav> 
-   <div class="col-sm-4 col-sm-offset-1">        
-<div class="container">
-          
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Friends</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="Friends in AllUsersFriends">
-                                        <td>{{Friends}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-</div>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+        <div class="container" ng-model="username">
+            <h3>welcome to Chat<span class="label label-info"></span></h3>
+            <div class="button-right">
+                <a href="#/mainPageLayout" class="btn btn-info" role="button">Log out</a>
+                <div class="container">
+            </div>   
+        </div>  
+    </nav> 
+    <div class="col-sm-4 col-sm-offset-1">        
+    </br>
+    </br>
+    </br>
+    <div class="container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Friends</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="selectedFriends in AllUsersFriends">
+                    <td> 
+                        <a href="#/chatBox" ng-bind="selectedFriends" ng-click="whichFriendMessage(selectedFriends)">
+                        First column
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>    
+    
+        <div class="col-md-4 col-md-offset-4">
+            <div ng-if="choosenPersonAlert" class="alert alert-danger">
+            {{clickedFriendMessage}}
+        </div>
         
-        <div class="container">	
-	    	
-           
         
-	    	<aside class="sidebar-left">
-	    	    
-                        
-				<a class="company-logo" href="#">ChitChat
-				  	<span img src="data:image/jpeg;base64," aria-hidden="true"></span>
-				</a>
-				
-				
+        <div class="scroll" id="msgpane">
+            <p ng-repeat="msg in messages">
+              <b ng-bind="msg.name"></b>:&nbsp
+              <span ng-bind="msg.text"></span>
+            </p>
+        </div>
+    
+        <form ng-submit="send()">
+          <input type="text"  ng-model="text" size="30" placeholder="..">
+          <input type="submit"  value="Send" ng-disabled="!NameL">
+        </form>
+        
+        
+    </div>
+</div>
 
-
+        
+<div class="container">	
+    <aside class="sidebar-left">
+		<a class="company-logo" href="#">ChitChat
+		  	<span img src="data:image/jpeg;base64," aria-hidden="true"></span>
+		</a>
 			
-				<div class="sidebar-links">
+		<div class="sidebar-links">
 					
-					<a href="#/profile" class="btn btn-info" role="button">Home</a>
-					<a href="#/edit_profile" class="btn btn-info" role="button">Edit Profile</a>
-					<a href="#/contacts" class="btn btn-info" role="button">Contacts</a>
-					<a href="#/chatBox" class="btn btn-info" role="button">Chat</a>
-				</div>
-			</aside>    
-			
-
+			<a href="#/profile" class="btn btn-info" role="button">Home</a>
+			<a href="#/edit_profile" class="btn btn-info" role="button">Edit Profile</a>
+			<a href="#/contacts" class="btn btn-info" role="button">Contacts</a>
+			<a href="#/chatBox" class="btn btn-info" role="button">Chat</a>
 		</div>
+	</aside>    
+</div>
 	
 	    
 	
-	    <nav class="navbar navbar-inverse navbar-fixed-bottom footer">
-        	<div class="container-fluid">
-           		<div class="navbar-header">
-                	<p class="navbar-brand" >&copy 2016 ChitChat All Rights Reserved | Designed by Laila Shaikh and Nicholas Sebenaler</p>
-          		</div>
-            	<ul class="nav navbar-nav">
-           		 </ul>
-          	</div>
-        </nav>
+<nav class="navbar navbar-inverse navbar-fixed-bottom footer">
+	<div class="container-fluid">
+	    <div class="navbar-header">
+            <p class="navbar-brand" >&copy 2016 ChitChat All Rights Reserved | Designed by Laila Shaikh and Nicholas Sebenaler</p>
+        </div>
+        <ul class="nav navbar-nav">
+        </ul>
+    </div>
+</nav>
 		
-		<script>
-		$(function () {
-			var links = $('.sidebar-links > a');
-			links.on('click', function () {
-			links.removeClass('selected');
-			$(this).addClass('selected');
-			});
-		});
-		</script>
-</div>
+<script>
+    $(function () {
+	var links = $('.sidebar-links > a');
+		links.on('click', function () {
+		links.removeClass('selected');
+		$(this).addClass('selected');
+    });
+});
+</script>
+<script src="js/scale.fix.js"></script>
