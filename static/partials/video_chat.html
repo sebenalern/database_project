@@ -1,10 +1,12 @@
 
+            <script src="static/js/webRTC.js"></script>
+   
 
 
-<div>
+<div >
         <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
               <div class="container" ng-model="username">
-                   <h3>Signed in as, <span class="label label-info">{{username}}</span></h3>
+                   <h3>Video Chat <span class="label label-info"></span></h3>
                   <div class="button-right">
                    
                     
@@ -31,7 +33,23 @@
 		</div>
 	</aside>
 
+
+
 	</div>
+<div class="media">
+    
+
+<video id="remoteVideo" autoplay>
+   
+</video>
+
+<video id="localVideo" autoplay></video>
+    
+
+<button id="callButton" type="button" class="btn btn-info">Call</button>
+<button id="endCallButton" type="button" class="btn btn-info">End call</button>
+</div>
+
 	        <nav class="navbar navbar-inverse navbar-fixed-bottom footer">
           <div class="container-fluid">
             <div class="navbar-header">

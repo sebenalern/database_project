@@ -1,3 +1,70 @@
+/*#remoteVideo */
+/*{*/
+/*	position: absolute;*/
+/*	margin-top:20px;*/
+/*	margin-left:px;*/
+/*	width:200px;*/
+/*	height: 200px;*/
+/*	background-color:black;*/
+
+/*}*/
+
+/*#localVideo */
+/*{*/
+/*	position: absolute;*/
+/*	width:100px;*/
+/*	height: 100px;*/
+/*	background-color:black;*/
+/*	margin-left:800px;*/
+/*}*/
+/*#callButton*/
+/*{*/
+/*	position: absolute;*/
+/*	margin-left:700px;*/
+/*	margin-bottom: 100px;*/
+	
+/*}*/
+
+/*#endCallButton*/
+/*{*/
+/*	position: absolute;*/
+/*	margin-left:750px;*/
+	
+/*}*/
+
+.media > #remoteVideo {
+	background-color: black;
+		position: relative;
+	margin-top:50px;
+	width:680px;
+	height:400px;
+	margin-left:150px;
+}
+
+.media > #localVideo {
+	background-color: black;
+		position: absolute;
+	margin-top:100px;
+	width:400px;
+	height:200px;
+	margin-left: 15px;
+}
+
+#callButton, #endCallButton {
+	display:inline-block;
+}
+
+/*.media > #callButton {*/
+/*		position: absolute;*/
+/*	margin-top:300px;*/
+/*	margin-left: 25px;*/
+
+/*}*/
+
+
+
+
+
 tr {
 width: 50%;
 /*display: inline-table;*/
