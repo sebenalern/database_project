@@ -54,7 +54,11 @@ chitChatApp.config(['$routeProvider',
              when('/add_friends', {
                  templateUrl: '../static/partials/add_friends.html/',
                  controller: "chitChatApp"
-             }).                
+             }). 
+             when('/video_chat', {
+                 templateUrl: '../static/partials/video_chat.html/',
+                 controller: "chitChatApp"
+             }).                 
              otherwise({
                  redirectTo: '/'
              });
