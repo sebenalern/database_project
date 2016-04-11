@@ -7,6 +7,7 @@ from flask.ext.socketio import SocketIO, emit, send
 import psycopg2
 import psycopg2.extras
 from psycopg2.extensions import adapt
+import random
 
 # create flask app
 app = Flask(__name__)
@@ -37,7 +38,15 @@ def connectToDB():
         return psycopg2.connect(connectionString)
     except:
         print 'Can\'t connect to the database.'
-        
+
+# creates a 10 digit token for the room number
+
+# def generate_random(len):
+# 	word = ''
+# 	for i in range(len):
+# 		word += random.choice('0123456789')
+# 	print word
+# 	socketio.emit("openChannel", word, namespace="/video")
 
 
 
@@ -130,6 +139,20 @@ def addFriend(user, friend):
         conn.rollback()
     
     # TODO send a message back to client that the friend was added and alert user
+
+# Updates the new info of the user
+@socketio.on("updateUserInfo")
+def updateUserInfo(userInfo):
+    print "inside updateUserInfo--------------------------------------------------------"
+    print userInfo
+    try:    
+        conn=connectToDB()
+        cur=conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        print(cur.mogrify("""UPDATE users SET email = %s, first_name = %s, last_name = %s, username = %s, password = crypt(%s, gen_salt('bf')) where email = %s;""", (userInfo[0], userInfo[1], userInfo[2], userInfo[3], userInfo[4], userInfo[0])))
+        cur.execute("""UPDATE users SET email = %s, first_name = %s, last_name = %s, username = %s, password = crypt(%s, gen_salt('bf')) where email = %s;""", (userInfo[0], userInfo[1], userInfo[2], userInfo[3], userInfo[4], userInfo[0]))
+        conn.commit()
+    except:
+        conn.rollback()
 
 @app.route("/")
 def index():

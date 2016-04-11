@@ -1,7 +1,47 @@
 
-            <script src="static/js/webRTC.js"></script>
+<!--            <script src="static/js/webRTC.js"></script>-->
+
    
 
+<!--<div class="pure-g">-->
+
+      <!-- Video area -->
+<!--      <div class="pure-u-2-3" id="video-container">-->
+<!--        <video id="their-video" autoplay></video>-->
+<!--        <video id="my-video" muted="true" autoplay></video>-->
+<!--      </div>-->
+
+      <!-- Steps -->
+<!--      <div class="pure-u-1-3">-->
+<!--        <h2>PeerJS Video Chat</h2>-->
+
+        <!-- Get local audio/video stream -->
+<!--        <div id="step1">-->
+<!--          <p>Please click `allow` on the top of the screen so we can access your webcam and microphone for calls.</p>-->
+<!--          <div id="step1-error">-->
+<!--            <p>Failed to access the webcam and microphone. Make sure to run this demo on an http server and click allow when asked for permission by the browser.</p>-->
+<!--            <a href="#" class="pure-button pure-button-error" id="step1-retry">Try again</a>-->
+<!--          </div>-->
+<!--        </div>-->
+
+        <!-- Make calls to others -->
+<!--        <div id="step2">-->
+<!--          <p>Your id: <span id="my-id">...</span></p>-->
+<!--          <p>Share this id with others so they can call you.</p>-->
+<!--          <h3>Make a call</h3>-->
+<!--          <div class="pure-form">-->
+<!--            <input type="text" placeholder="Call user id..." id="callto-id">-->
+<!--            <a href="#" class="pure-button pure-button-success" id="make-call">Call</a>-->
+<!--          </div>-->
+<!--        </div>-->
+
+        <!-- Call in progress -->
+<!--        <div id="step3">-->
+<!--          <p>Currently in call with <span id="their-id">...</span></p>-->
+<!--          <p><a href="#" class="pure-button pure-button-error" id="end-call">End call</a></p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--  </div>-->
 
 <div >
         <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
@@ -24,11 +64,10 @@
 		</a>
 		
 		<div class="sidebar-links">
-			<a href="#/profile" class="btn btn-info" role="button">Home</a>
+	    <a href="#/profile" class="btn btn-info" role="button">Home</a>
 			<a href="#/chatBox" class="btn btn-info" role="button">Chat with a Friend</a>
 			<a href="#/video_chat" class="btn btn-info" role="button">Video Chat</a>
 			<a href="#/add_friends" class="btn btn-info" role="button">Add Friends</a>
-			<a href="#/contacts" class="btn btn-info" role="button">Contacts</a>
 			<a href="#/edit_profile" class="btn btn-info" role="button">Edit Profile</a>
 		</div>
 	</aside>
@@ -43,12 +82,14 @@
    
 </video>
 
-<video id="localVideo" autoplay></video>
+<video id="localVideo" autoplay muted></video>
     
 
-<button id="callButton" type="button" class="btn btn-info">Call</button>
-<button id="endCallButton" type="button" class="btn btn-info">End call</button>
+<button id="callButton" onclick="startVideoChat()" type="button" class="btn btn-info">Start a Video Chat Room</button>
+<button id="endCallButton"  type="button" class="btn btn-info">End call</button>
+ 
 </div>
+
 
 	        <nav class="navbar navbar-inverse navbar-fixed-bottom footer">
           <div class="container-fluid">
@@ -59,6 +100,9 @@
             </ul>
           </div>
         </nav>
+        <script type="text/javascript">
+            pageReady();
+        </script>
 		<script>
 
 		$(function () {
