@@ -22,7 +22,7 @@
             <tbody>
                 <tr ng-repeat="selectedFriends in AllUsersFriends">
                     <td> 
-                        <a href="#/chatBox" ng-bind="selectedFriends" ng-click="whichFriendMessage(selectedFriends)">
+                        <a href="#/chatBox" ng-bind="selectedFriends[0]" ng-click="whichFriendMessage(selectedFriends)">
                         First column
                         </a>
                     </td>
@@ -37,7 +37,6 @@
         </div>
         
         
-<<<<<<< HEAD
         <div class="scroll" id="msgpane">
             <p ng-repeat="msg in messages">
               <b ng-bind="msg.name"></b>:&nbsp
@@ -47,13 +46,12 @@
     
         <form ng-submit="send()">
           <input type="text"  ng-model="text" size="30" placeholder="..">
-          <input type="submit"  value="Send" ng-disabled="!NameL">
+          <input type="submit"  value="Send">
         </form>
         
         
     </div>
 </div>
-=======
 	    	<aside class="sidebar-left">
 	    	    
                         
@@ -63,7 +61,6 @@
 				
 				
 
->>>>>>> bf583fb5df1462c578c76f61400a2f10c7dc93f3
 
         
 <div class="container">	

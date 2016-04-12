@@ -4,7 +4,7 @@ var chitChatApp = angular.module('chitChatApp', ['ngRoute', 'ui.bootstrap', 'btf
 
 chitChatApp.service("DataPersistence", function () {
     
-    
+    this.messages=[];    
     this.userSuccessfullyLoggedIn = false;
     this.userSuccessfullyRegistered = false;    
     this.firstname = "";
@@ -76,7 +76,10 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     $scope.showResultsClicked = DataPersistence.showResultsClicked;
     $scope.selectedFriends="";
     $scope.clickedFriendMessage="";
-    
+    $scope.messages=DataPersistence.messages; 
+    $scope.friendsNameEmail={};
+    $scope.selectedFriendNameEmail=[];
+    $scope.roomNoJoin="";
     
     
     // Add a watcher to update the service and update its properties
@@ -92,6 +95,10 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     $scope.$watch('username', function () {
          DataPersistence.username = $scope.username;
      });
+     $scope.$watch('messages', function () {
+         DataPersistence.messages = $scope.messages;
+     });
+     
      $scope.$watch('firstname', function () {
          DataPersistence.firstname = $scope.firstname;
      });
@@ -179,18 +186,29 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     
     
     $scope.whichFriendMessage=function(selectedFriends){
-       
-       $log.log(selectedFriends[0]);
+       $scope.messages=[]; 
+       $scope.selectedFriendNameEmail=selectedFriends;
        $scope.clickedFriendMessage=selectedFriends[0];
        $scope.choosenPersonAlert=true;
-       $scope.apply();
-       socket.emit("RoomClicked",selectedFriends[0]);
+       $log.log($scope.email);
+       $log.log(selectedFriends[1]);
+       socket.emit("RoomClicked",selectedFriends[1], $scope.email);
     };
     
+     $scope.send=function send(){
+        console.log($scope.selectedFriendNameEmail[1]);
+        console.log($scope.email);
+        console.log($scope.text);
+        socket.emit('joined',$scope.text,$scope.email, $scope.selectedFriendNameEmail[1]);
+        $scope.text=""; 
+    };
     
         socket.on('message', function(msg){
         $scope.messages.push(msg);
+        console.log('Room no is ');
+        // console.log(roomToJoin);
         $scope.$apply();
+        console.log($scope.roomNoJoin);
         //$scope.messages1.push($scope.messages[$scope.count]['text']);
         var elem=document.getElementById('msgpane');
         /*console.log(elem);*/
@@ -210,10 +228,15 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     
     socket.forward("AllFriends", $scope);
     $scope.$on("socket:AllFriends",function (ev, Friends){
-      $log.log('so the friends are');
-      $scope.AllUsersFriends=Friends;
-      console.log($scope.AllUsersFriends);
-      $scope.$apply();
+    $log.log('so the friends are');
+    // for(var i=0; i<Friends.length; i++)
+    // {
+            
+            $scope.AllUsersFriends=Friends;
+            
+    // }
+    console.log($scope.AllUsersFriends);
+    $scope.$apply();
     });
     
     
@@ -222,9 +245,7 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
       $scope.listOfUsers= [];
       socket.emit("getUsersToAdd");
       $scope.showResultsClicked = true;
-      $scope.$apply();
-      
-        
+      $scope.$apply(); 
     };
     
     
