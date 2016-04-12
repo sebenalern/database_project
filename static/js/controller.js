@@ -14,6 +14,8 @@ chitChatApp.service("DataPersistence", function () {
     this.showResultsClicked = false;
     this.listOfUsers = [];
     this.AllUsersFriends=[];
+    this.password="";
+    this.confirmPassword="";
 });
 
 chitChatApp.factory('socket', function (socketFactory) {
@@ -74,6 +76,10 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     $scope.email = DataPersistence.email;
     $scope.listOfUsers = DataPersistence.listOfUsers;
     $scope.showResultsClicked = DataPersistence.showResultsClicked;
+<<<<<<< HEAD
+    $scope.password = DataPersistence.password;
+    $scope.confirmPassword = DataPersistence.confirmPassword;
+=======
     $scope.selectedFriends="";
     $scope.clickedFriendMessage="";
     $scope.messages=DataPersistence.messages; 
@@ -81,8 +87,15 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     $scope.selectedFriendNameEmail=[];
     $scope.roomNoJoin="";
     
+>>>>>>> d9fcbf4a78598a729b042c5c79317caea326deb2
     
     // Add a watcher to update the service and update its properties
+    $scope.$watch("password", function () {
+       DataPersistence.password = $scope.password; 
+    });
+    $scope.$watch('confirmPassword', function () {
+         DataPersistence.confirmPassword = $scope.confirmPassword;
+     });    
     $scope.$watch("AllUsersFriends", function () {
        DataPersistence.AllUsersFriends = $scope.AllUsersFriends; 
     });
@@ -267,5 +280,27 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
         $scope.username = "";
         $scope.email = "";
     };
+    
+    // Change the user's profile details
+    $scope.saveProfileChanges = function (email, firstname, lastname, username, pass, passConfirm) {
+      $log.log("inside saveProfileChanges");
+      $scope.userInfo = [];
+      $scope.email = email;
+      $scope.firstname = firstname;
+      $scope.lastname = lastname;
+      $scope.username = username;
+      $scope.userInfo.push($scope.email);
+      $scope.userInfo.push($scope.firstname);
+      $scope.userInfo.push($scope.lastname);
+      $scope.userInfo.push($scope.username);
+      $scope.userInfo.push(pass);
+      $scope.userInfo.push(passConfirm);
+      $log.log($scope.userInfo);
+      socket.emit("updateUserInfo", $scope.userInfo);
+
+
+    };
+    
+    
     
 }]);
