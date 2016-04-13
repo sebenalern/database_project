@@ -76,10 +76,6 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     $scope.email = DataPersistence.email;
     $scope.listOfUsers = DataPersistence.listOfUsers;
     $scope.showResultsClicked = DataPersistence.showResultsClicked;
-<<<<<<< HEAD
-    $scope.password = DataPersistence.password;
-    $scope.confirmPassword = DataPersistence.confirmPassword;
-=======
     $scope.selectedFriends="";
     $scope.clickedFriendMessage="";
     $scope.messages=DataPersistence.messages; 
@@ -87,7 +83,8 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
     $scope.selectedFriendNameEmail=[];
     $scope.roomNoJoin="";
     
->>>>>>> d9fcbf4a78598a729b042c5c79317caea326deb2
+    $scope.password = DataPersistence.password;
+    $scope.confirmPassword = DataPersistence.confirmPassword;
     
     // Add a watcher to update the service and update its properties
     $scope.$watch("password", function () {
@@ -171,14 +168,15 @@ chitChatApp.controller('chitChatApp', ['$scope', '$location', '$log','$route', '
         $scope.firstname = userData[1];
         $scope.lastname = userData[2];
         $scope.username = userData[3];
+        
 
         $log.log($scope.username + "  After username is set");
         $scope.checked = false;
         socket.emit('bringUsersFriends', $scope.email);
         $scope.choosenPersonAlert=false;
         $scope.$apply();
-        // $location.path('/profile');
-        // $route.reload();
+        $location.path('/profile');
+        $route.reload();
     });
     
     
